@@ -2,9 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-app_name: myapp1
-cpu_limits: 1
-cpu_requests: 1
+app_name: myapp1-dev
+cpu_limits: 0.5
+cpu_requests: 0.1
 memory_limits: 256
 memory_requests: 128
 replicas: 1
