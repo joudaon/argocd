@@ -5,6 +5,7 @@
 app_name: myapp2
 cpu_limits: 2
 cpu_requests: 1
+node_port: 30003
 memory_limits: 512
 memory_requests: 256
 replicas: 1
