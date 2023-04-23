@@ -5,7 +5,8 @@
 app_name: myapp2
 cpu_limits: 1
 cpu_requests: 1
-node_port: 30002
+environment: dev
 memory_limits: 256
 memory_requests: 128
+node_port: 30002
 replicas: 1
