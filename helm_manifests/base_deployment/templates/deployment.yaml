@@ -52,8 +52,8 @@ spec:
               fieldPath: metadata.namespace
         resources:
           limits:
-            cpu: '1'
-            memory: 256Mi
+            cpu: {{ .Values.cpu_limits }}
+            memory: {{ .Values.memory_limits }}Mi
           requests:
-            cpu: '1'
-            memory: 256Mi
+            cpu: {{ .Values.cpu_requests }}
+            memory: {{ .Values.memory_requests }}Mi
