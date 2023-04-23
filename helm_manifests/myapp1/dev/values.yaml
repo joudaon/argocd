@@ -2,5 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicas: 1
 
+cpu_limits: 1
+cpu_requests: 1
+memory_limits: 256
+memory_requests: 128
+replicas: 1
