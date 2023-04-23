@@ -14,7 +14,7 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: {{ .Values.nodeport }}
+      nodePort: {{ .Values.node_port }}
 ---
 apiVersion: apps/v1
 kind: Deployment
