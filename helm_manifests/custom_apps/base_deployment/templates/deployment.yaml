@@ -52,6 +52,9 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
+        envFrom:
+          - configMapRef:
+              name: {{ .Values.app_name }}
         resources:
           limits:
             cpu: {{ .Values.cpu_limits }}
