@@ -31,7 +31,7 @@ spec:
         helm:
           releaseName: "myapp1"
           valueFiles:
-            - ../myapp1/{{environment}}/values.yaml
+            - ..apps//myapp1/{{environment}}/values.yaml
       destination:
         server: '{{url}}'
         namespace: myapps
