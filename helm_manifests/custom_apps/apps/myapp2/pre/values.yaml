@@ -8,5 +8,5 @@ cpu_requests: 1
 environment: dev
 memory_limits: 512
 memory_requests: 256
-node_port: 30004
+node_port: 30005
 replicas: 1
