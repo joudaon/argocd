@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: myapps
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/joudaon/argocd.git
+        revision: HEAD
+        files:
+        - path: "helm_manifests/custom_apps/apps/**/values.yaml"
+  template:
+    metadata:
+      name: '{{path[3]}}-{{path.basename}}'
+      labels:
+        environment: '{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/joudaon/argocd.git
+        targetRevision: HEAD
+        path: "helm_manifests/custom_apps/base_deployment"
+        helm:
+          releaseName: "myapp1"
+          valueFiles:
+            - ../apps/{{path[3]}}/{{path.basename}}/values.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{path[3]}}'
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true
