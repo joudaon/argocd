@@ -25,3 +25,7 @@ kubectl apply -f 02_applications/02_applicationset.yaml
 ./03_deployments/deploy_app.sh
 ```
 
+## Usefull links
+
+- [Git Generator](https://argocd-applicationset.readthedocs.io/en/stable/Generators-Git/)
+- [How to create ArgoCD Applications Automatically using ApplicationSet? “Automation of GitOps”](https://amralaayassen.medium.com/how-to-create-argocd-applications-automatically-using-applicationset-automation-of-the-gitops-59455eaf4f72)
