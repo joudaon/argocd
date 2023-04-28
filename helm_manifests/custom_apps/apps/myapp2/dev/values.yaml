@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 
 app_name: myapp2-dev
+app_version: latest
 cpu_limits: 1
 cpu_requests: 1
 environment: dev

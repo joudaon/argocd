@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.app_name }}
-        image: httpd # <-- {{ .Values.app_name }} IMAGE
+        image: httpd:{{ .Values.app_version }} # <-- {{ .Values.app_name }} IMAGE
         lifecycle:
           postStart:
             exec:
