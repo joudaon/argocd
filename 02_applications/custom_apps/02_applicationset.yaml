@@ -22,7 +22,7 @@ spec:
         targetRevision: HEAD
         path: "helm_manifests/custom_apps/base_deployment"
         helm:
-          releaseName: "myapp1"
+          releaseName: "{{path[3]}}"
           valueFiles:
             - ../apps/{{path[3]}}/{{path.basename}}/values.yaml
       destination:
