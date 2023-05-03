@@ -4,8 +4,8 @@
 
 app_name: myapp2-pre
 app_version: latest
-cpu_limits: 2
-cpu_requests: 1
+cpu_limits: 0.5
+cpu_requests: 0.2
 environment: pre
 memory_limits: 512
 memory_requests: 256
