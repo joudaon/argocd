@@ -1,5 +1,7 @@
 # argocd
 
+## Deploy
+
 1. Install minikube with argocd
 
 ```sh
@@ -31,4 +33,5 @@ kubectl apply -f 02_applications/02_applicationset.yaml
 - [How to create ArgoCD Applications Automatically using ApplicationSet? “Automation of GitOps”](https://amralaayassen.medium.com/how-to-create-argocd-applications-automatically-using-applicationset-automation-of-the-gitops-59455eaf4f72)
 - [](https://www.buchatech.com/2022/08/how-to-set-the-application-reconciliation-timeout-in-argo-cd/)
 - [](https://argo-cd.readthedocs.io/en/stable/operator-manual/health/ag)
-- [](https://github.com/argoproj/argo-cd/discussions/10478)
+- [Default timeout for 'argocd app wait' cli command](https://github.com/argoproj/argo-cd/discussions/10478)
+- [Cluster add-ons examples](https://github.com/aws-samples/eks-blueprints-add-ons)
