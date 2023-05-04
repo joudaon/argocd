@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: bootstrap-apps
+  name: bootstrap
   namespace: argocd
   labels:
     name: bootstrap
@@ -13,12 +13,12 @@ spec:
     namespace: bootstrap
     server: 'https://kubernetes.default.svc'
   source:
-    path: 02_applications/custom_apps/
+    path: 02_applications/bootstrap/cluster-addons.yaml
     repoURL: https://github.com/joudaon/argocd.git
     targetRevision: HEAD
     directory:
-      include: 02_applicationset.yaml
-      exclude: '{bootstrap.yaml, 01_project.yaml}'
+      include: cluster-addons.yaml
+      exclude: bootstrap.yaml
   project: default
   syncPolicy:
     # automated:
