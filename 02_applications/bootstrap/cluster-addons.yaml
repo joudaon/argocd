@@ -1,31 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
+kind: Application
 metadata:
   name: cluster-addons
   namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
 spec:
-  generators:
-    - git:
-        repoURL: https://github.com/joudaon/argocd.git
-        revision: HEAD
-        files:
-        - path: "helm_manifests/cluster_addons/**"
-  template:
-    metadata:
-      name: '{{path.basename}}'
-      labels:
-        app_type: systemApp
-    spec:
-      project: default
-      source:
-        repoURL: https://github.com/joudaon/argocd.git
-        targetRevision: HEAD
-        path: "helm_manifests/cluster_addons/{{path.basename}}"
-        helm:
-          releaseName: "{{path.basename}}"
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: '{{path.basename}}'
-      syncPolicy:
-        syncOptions:
-        - CreateNamespace=true
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: 02_application/bootstrap/helm
+    repoURL: https://github.com/joudaon/argocd.git
+    targetRevision: HEAD
