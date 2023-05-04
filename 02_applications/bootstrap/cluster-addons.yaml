@@ -11,6 +11,6 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: 02_application/bootstrap/helm
+    path: 02_applications/bootstrap/helm
     repoURL: https://github.com/joudaon/argocd.git
     targetRevision: HEAD
