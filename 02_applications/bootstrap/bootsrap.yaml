@@ -1,0 +1,24 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bootstrap
+  namespace: argocd
+  labels:
+    name: bootstrap
+    environment: dev
+spec:
+  destination:
+    name: ''
+    namespace: bootstrap
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: 02_applications/boostrap/cluster-addons.yaml
+    repoURL: https://github.com/joudaon/argocd.git
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    # automated:
+    #   selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
