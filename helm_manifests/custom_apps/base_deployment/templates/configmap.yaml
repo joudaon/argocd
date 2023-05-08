@@ -4,4 +4,8 @@ metadata:
   name: {{ .Values.app_name }}
   namespace: {{ .Values.namespace }}
 data:
-  message: 'Hello World!'
+  {{- if values.animals }}
+  {{- range $k, $v := .Values.animals }}
+  - {{ $k }}: {{ $v }}
+  {{- end }}
+  {{- end }}

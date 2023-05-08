@@ -35,3 +35,4 @@ kubectl apply -f 02_applications/02_applicationset.yaml
 - [](https://argo-cd.readthedocs.io/en/stable/operator-manual/health/ag)
 - [Default timeout for 'argocd app wait' cli command](https://github.com/argoproj/argo-cd/discussions/10478)
 - [Cluster add-ons examples](https://github.com/aws-samples/eks-blueprints-add-ons)
+- [Deploying Prometheus and Grafana as Applications Using ArgoCD — Including Dashboards](https://dzone.com/articles/deploying-prometheus-and-grafana-as-applications-u)
