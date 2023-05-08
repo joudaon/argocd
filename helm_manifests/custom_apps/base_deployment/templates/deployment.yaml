@@ -1,21 +1,3 @@
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ .Values.app_name }}
-  labels:
-    app: {{ .Values.app_name }}
-    environment: {{ .Values.environment }}
-spec:
-  type: NodePort
-  selector:
-    app: {{ .Values.app_name }}
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-      nodePort: {{ .Values.node_port }}
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -48,6 +30,9 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
+        {{- if .Values.database.enabled }}
+        - name: DATABASE
+          value: "Hello database"
         - name: MY_POD_NAMESPACE
           valueFrom:
             fieldRef:
