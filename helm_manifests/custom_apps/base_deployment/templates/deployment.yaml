@@ -34,6 +34,7 @@ spec:
         {{- if .Values.database.enabled }}
         - name: DATABASE
           value: "Hello database"
+        {{- end }}
         - name: MY_POD_NAMESPACE
           valueFrom:
             fieldRef:
