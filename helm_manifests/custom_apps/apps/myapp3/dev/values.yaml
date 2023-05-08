@@ -2,6 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+animals:
+  animal1: cat
+  animal2: dog
 app_name: myapp3-dev
 app_version: latest
 cpu_limits: 0.2
