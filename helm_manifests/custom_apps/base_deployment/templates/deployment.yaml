@@ -31,7 +31,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
-        {{- if .Values.database.enabled }}
+        {{- if .Values.database_enabled }}
         - name: DATABASE
           value: "Hello database"
         {{- end }}
