@@ -4,7 +4,7 @@ metadata:
   name: {{ .Values.app_name }}
   namespace: {{ .Values.namespace }}
 data:
-  {{- if values.animals }}
+  {{- if .Values.animals }}
   {{- with .Values.animals }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
