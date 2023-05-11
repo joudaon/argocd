@@ -12,9 +12,7 @@ spec:
   source:
     repoURL: https://github.com/joudaon/argocd.git
     targetRevision: HEAD
-    path: 02_approach_3/apps
-    directory:
-      recurse: true
+    path: 02_approach_3/argocd/apps
   destination:
     server: https://kubernetes.default.svc
     namespace: root-app
