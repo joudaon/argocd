@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp1
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: root-app
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/joudaon/argocd.git
+    targetRevision: HEAD
+    path: 02_approach_3/apps/myapp1
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: root-app
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
