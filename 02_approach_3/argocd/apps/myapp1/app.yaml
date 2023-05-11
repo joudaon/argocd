@@ -19,8 +19,8 @@ spec:
         - ../apps/myapp1-dev.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: myapp1
-  syncPolicy:
-    syncOptions:
-    - CreateNamespace=true
+  #   namespace: myapp1
+  # syncPolicy:
+  #   syncOptions:
+  #   - CreateNamespace=true
 
