@@ -17,4 +17,10 @@ spec:
       releaseName: "{{path[3]}}"
       valueFiles:
         - ../apps/myapp1/dev/values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: root-app
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
 
