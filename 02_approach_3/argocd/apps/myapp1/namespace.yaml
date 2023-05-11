@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    name: root_app
+    name: myapp1
 spec:
   project: default
   source:
@@ -19,7 +19,7 @@ spec:
         - ../apps/myapp1-dev.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: root-app
+    namespace: myapp1
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
