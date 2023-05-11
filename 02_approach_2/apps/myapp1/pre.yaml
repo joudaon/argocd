@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp1-pre
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: root_app
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/joudaon/argocd.git
+    targetRevision: HEAD
+    path: "helm_manifests/custom_apps/base_deployment"
+    helm:
+      releaseName: "{{path[3]}}"
+      valueFiles:
+        - ../apps/myapp1/pre/values.yaml
+
