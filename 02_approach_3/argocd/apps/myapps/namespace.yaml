@@ -1,22 +1,26 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: myapp1
+  name: myapps-namespace-dev
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    name: myapp1
+    name: myapps
 spec:
   project: default
   source:
     repoURL: https://github.com/joudaon/argocd.git
     targetRevision: HEAD
-    path: 02_approach_3/argocd/apps/myapp1
-    directory:
-      recurse: true
+    path: "02_approach_3/helm_manifests/namespace"
+    helm:
+      releaseName: "myapps-namespace-dev"
+      valueFiles:
+        - ../apps-values/myapps/namespace.yaml
   destination:
     server: https://kubernetes.default.svc
   #   namespace: myapp1
-  syncPolicy:
-    automated: {}
+  # syncPolicy:
+  #   syncOptions:
+  #   - CreateNamespace=true
+
