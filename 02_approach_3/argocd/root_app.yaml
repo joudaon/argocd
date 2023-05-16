@@ -16,6 +16,6 @@ spec:
   destination:
     server: https://kubernetes.default.svc
   #   namespace: root-app
-  # syncPolicy:
-  #   syncOptions:
-  #   - CreateNamespace=true
+  syncPolicy:
+    automated: {}
+

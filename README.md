@@ -8,20 +8,40 @@
 ./01_infrastructure/install.sh
 ```
 
-2. Login into the cluster with argocd cli
+## Approach 1
+
+//TODO
+
+## Approach 2
+
+//TODO
+
+## Approach 3
+
+In this approach we will deploy 2 applications. The first application will deploy shared objects like `namespace` and the other application will deploy `application` specific resources.
+
+1. Install minikube
+
+```sh
+./01_infrastructure/install.sh
+```
+
+2. Deploy 
+
+```sh
+kubectl apply -f 02_approach_3/argocd/root_app.yaml
+```
+
+## CLI deployment
+
+1. Login into the cluster with argocd cli
 
 ```sh
 argocd login $(minikube ip):$NODEPORT --username admin
 ```
 
-3. Create a project and application set
 
-```sh
-kubectl apply -f 02_applications/01_project.yaml
-kubectl apply -f 02_applications/02_applicationset.yaml
-```
-
-4. Sync your app runing
+2. Sync your app runing
 
 ```sh
 ./03_deployments/deploy_app.sh
