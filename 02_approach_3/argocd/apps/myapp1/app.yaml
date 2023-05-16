@@ -16,7 +16,7 @@ spec:
     helm:
       releaseName: "myapp1-app-dev"
       valueFiles:
-        - ../apps/myapp1-dev.yaml
+        - ../apps-values/myapp1-dev.yaml
   destination:
     server: https://kubernetes.default.svc
   #   namespace: myapp1
