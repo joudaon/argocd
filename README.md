@@ -10,7 +10,7 @@
 
 ## Approach 1
 
-//TODO
+In this example we will use `applicationset` to dinamically create resources.
 
 ## Approach 2
 
@@ -45,6 +45,12 @@ argocd login $(minikube ip):$NODEPORT --username admin
 
 ```sh
 ./03_deployments/deploy_app.sh
+```
+
+## Clean up environment
+
+```sh
+.minikube delete
 ```
 
 ## Usefull links
