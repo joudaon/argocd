@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: myapps
+  name: cluster-addons
   namespace: argocd
 spec:
   generators:
@@ -9,25 +9,23 @@ spec:
         repoURL: https://github.com/joudaon/argocd.git
         revision: HEAD
         files:
-        - path: "helm_manifests/custom_apps/apps/**"
+        - path: "02_approach_1/helm/cluster_addons/**"
   template:
     metadata:
-      name: '{{path[3]}}-{{path.basename}}'
+      name: '{{path.basename}}'
       labels:
-        environment: '{{path.basename}}'
+        app_type: systemApp
     spec:
       project: default
       source:
         repoURL: https://github.com/joudaon/argocd.git
         targetRevision: HEAD
-        path: "helm_manifests/custom_apps/base_deployment"
+        path: "helm_manifests/cluster_addons/{{path.basename}}"
         helm:
-          releaseName: "{{path[3]}}"
-          valueFiles:
-            - ../apps/{{path[3]}}/{{path.basename}}/values.yaml
+          releaseName: "{{path.basename}}"
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{path[3]}}'
-      # syncPolicy:
-      #   syncOptions:
-      #   - CreateNamespace=true
+        namespace: '{{path.basename}}'
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true

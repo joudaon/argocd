@@ -1,0 +1,17 @@
+# Default values for nginx.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+animals:
+  animal1: cat
+  animal2: dog
+app_name: myapp3-dev
+app_version: latest
+cpu_limits: 0.2
+cpu_requests: 0.2
+database_enabled: true
+environment: dev
+memory_limits: 256
+memory_requests: 128
+namespace: myapps
+replicas: 1

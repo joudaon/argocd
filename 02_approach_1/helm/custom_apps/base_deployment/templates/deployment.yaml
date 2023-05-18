@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app_name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app_name }}
+    environment: {{ .Values.environment }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app_name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app_name }}
+    spec:
+      containers:
+      - name: {{ .Values.app_name }}
+        image: httpd:{{ .Values.app_version }} # <-- {{ .Values.app_name }} IMAGE
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "echo $MY_NODE_NAME - $HOSTNAME > htdocs/index.html"]
+        # LIFECYCLE DEFINITION END
+        ports:
+        - containerPort: 80
+        env:
+        - name: MY_NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        {{- if .Values.database_enabled }}
+        - name: DATABASE
+          value: "Hello database"
+        {{- end }}
+        - name: MY_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        envFrom:
+          - configMapRef:
+              name: {{ .Values.app_name }}
+        resources:
+          limits:
+            cpu: {{ .Values.cpu_limits }}
+            memory: {{ .Values.memory_limits }}Mi
+          requests:
+            cpu: {{ .Values.cpu_requests }}
+            memory: {{ .Values.memory_requests }}Mi

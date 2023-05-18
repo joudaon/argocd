@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.app_name }}
+  namespace: {{ .Values.namespace }}
+data:
+  {{- if .Values.animals }}
+  {{- with .Values.animals }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- end }}

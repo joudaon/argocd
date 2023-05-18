@@ -1,27 +1,26 @@
-
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: bootstrap
+  name: custom-apps
   namespace: argocd
   labels:
-    name: bootstrap
+    name: custom-apps
     environment: dev
 spec:
   destination:
     name: ''
-    namespace: bootstrap
+    namespace: custom-apps
     server: 'https://kubernetes.default.svc'
   source:
-    path: 02_applications/bootstrap
+    path: 02_approach_1/argocd/custom_apps
     repoURL: https://github.com/joudaon/argocd.git
     targetRevision: HEAD
     directory:
-      include: cluster-addons.yaml
-      exclude: bootstrap.yaml
+      include: 02_applicationset.yaml
+      exclude: '{bootstrap.yaml,01_project.yaml}'
   project: default
   syncPolicy:
-    # automated:
-    #   selfHeal: true
+    automated:
+      selfHeal: true
     syncOptions:
     - CreateNamespace=true

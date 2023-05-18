@@ -1,0 +1,7 @@
+metrics-server:
+  replicas: 3
+  podDisruptionBudget:
+    enabled: true
+    maxUnavailable: 1
+  args:
+    - --kubelet-insecure-tls

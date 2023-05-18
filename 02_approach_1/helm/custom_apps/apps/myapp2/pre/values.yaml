@@ -1,0 +1,14 @@
+# Default values for nginx.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+app_name: myapp2-pre
+app_version: latest
+cpu_limits: 0.5
+cpu_requests: 0.2
+environment: pre
+memory_limits: 512
+memory_requests: 256
+namespace: myapps
+node_port: 30005
+replicas: 1
