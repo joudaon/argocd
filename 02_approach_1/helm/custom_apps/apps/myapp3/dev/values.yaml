@@ -13,5 +13,4 @@ database_enabled: true
 environment: dev
 memory_limits: 256
 memory_requests: 128
-namespace: myapps
 replicas: 1

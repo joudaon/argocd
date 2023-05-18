@@ -9,6 +9,5 @@ cpu_requests: 1
 environment: dev
 memory_limits: 256
 memory_requests: 128
-namespace: myapps
 node_port: 30004
 replicas: 1
