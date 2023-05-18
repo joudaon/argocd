@@ -12,7 +12,7 @@ spec:
         - path: "02_approach_1/helm/custom_apps/apps/**"
   template:
     metadata:
-      name: '{{path[3]}}-{{path.basename}}'
+      name: '{{path[4]}}-{{path.basename}}'
       labels:
         environment: '{{path.basename}}'
     spec:
@@ -22,12 +22,12 @@ spec:
         targetRevision: HEAD
         path: "helm_manifests/custom_apps/base_deployment"
         helm:
-          releaseName: "{{path[3]}}"
+          releaseName: "{{path[4]}}"
           valueFiles:
-            - ../apps/{{path[3]}}/{{path.basename}}/values.yaml
+            - ../apps/{{path[4]}}/{{path.basename}}/values.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{path[3]}}'
+        namespace: '{{path[4]}}'
       # syncPolicy:
       #   syncOptions:
       #   - CreateNamespace=true
