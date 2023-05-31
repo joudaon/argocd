@@ -29,4 +29,3 @@ spec:
       syncPolicy:
         syncOptions:
         - CreateNamespace=true
-        - ServerSideApply=true # for kube-prometheus-stack
