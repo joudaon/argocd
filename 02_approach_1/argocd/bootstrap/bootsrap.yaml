@@ -17,6 +17,7 @@ spec:
     repoURL: https://github.com/joudaon/argocd.git
     targetRevision: HEAD
     directory:
+      include: cluster-addons.yaml
       exclude: bootstrap.yaml
   project: default
   syncPolicy:
