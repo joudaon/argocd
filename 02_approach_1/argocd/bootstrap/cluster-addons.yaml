@@ -20,7 +20,7 @@ spec:
       source:
         repoURL: https://github.com/joudaon/argocd.git
         targetRevision: HEAD
-        path: "helm_manifests/cluster_addons/{{path.basename}}"
+        path: "02_approach_1/helm/cluster_addons/{{path.basename}}"
         helm:
           releaseName: "{{path.basename}}"
       destination:
