@@ -1,5 +1,5 @@
 apiVersion: v2
-name: grafana
+name: kube-prometheus-stack
 description: A Helm chart for Grafana
 
 # Application charts are a collection of templates that can be packaged into versioned archives
