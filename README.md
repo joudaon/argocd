@@ -57,8 +57,8 @@ argocd login $(minikube ip):$NODEPORT --username admin
 
 - [Git Generator](https://argocd-applicationset.readthedocs.io/en/stable/Generators-Git/)
 - [How to create ArgoCD Applications Automatically using ApplicationSet? “Automation of GitOps”](https://amralaayassen.medium.com/how-to-create-argocd-applications-automatically-using-applicationset-automation-of-the-gitops-59455eaf4f72)
-- [](https://www.buchatech.com/2022/08/how-to-set-the-application-reconciliation-timeout-in-argo-cd/)
-- [](https://argo-cd.readthedocs.io/en/stable/operator-manual/health/ag)
+- [How To Set the Application Reconciliation Timeout in Argo CD](https://www.buchatech.com/2022/08/how-to-set-the-application-reconciliation-timeout-in-argo-cd/)
 - [Default timeout for 'argocd app wait' cli command](https://github.com/argoproj/argo-cd/discussions/10478)
 - [Cluster add-ons examples](https://github.com/aws-samples/eks-blueprints-add-ons)
 - [Deploying Prometheus and Grafana as Applications Using ArgoCD — Including Dashboards](https://dzone.com/articles/deploying-prometheus-and-grafana-as-applications-u)
+- [How to manage Kubernetes secrets with GitOps?](https://akuity.io/blog/how-to-manage-kubernetes-secrets-gitops/)

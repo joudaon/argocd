@@ -13,10 +13,6 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 kubectl expose deployment argocd-server --type=NodePort --name=argocd-service --namespace=argocd
 sleep 30s
 
-## Install applicationset
-echo "---> Installing applicationset"
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/applicationset/v0.4.1/manifests/install.yaml
-
 ## Install External Secrets Operator (https://github.com/external-secrets/external-secrets)(https://github.com/hashicorp/vault-helm/issues/17)
 echo "---> Installing External Secrets Operator"
 helm repo add external-secrets https://charts.external-secrets.io
@@ -31,9 +27,13 @@ kubectl apply -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/rele
 echo "---> Installing Argo CD Image Updater"
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
 
-## Install Argo CD Notifications (https://argocd-notifications.readthedocs.io/en/stable/)
-echo "---> Installing Argo CD Notifications"
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-notifications/release-1.0/manifests/install.yaml
+# ## Install applicationset (currently included in argocd)
+# echo "---> Installing applicationset"
+# kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/applicationset/v0.4.1/manifests/install.yaml
+
+# ## Install Argo CD Notifications (https://argocd-notifications.readthedocs.io/en/stable/) (currently included in argocd)
+# echo "---> Installing Argo CD Notifications"
+# kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-notifications/release-1.0/manifests/install.yaml
 
 # ## Download argocd cli
 # VERSION="v2.6.6" # Select desired TAG from https://github.com/argoproj/argo-cd/releases
