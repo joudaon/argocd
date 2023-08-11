@@ -4,6 +4,3 @@ spec:
       server: https://kubernetes.default.svc
     - servename: MyServer
       server: https://kubernetes.default.svc
-  source:
-    repoURL: https://github.com/joudaon/argocd.git
-    targetRevision: HEAD
