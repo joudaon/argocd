@@ -1,6 +1,6 @@
 spec:
   destination:
-    - servername: MyServer1
+    - servername: myserver
       server: https://kubernetes.default.svc
-    - servename: MyServer
+    - servename: myserver1
       server: https://kubernetes.default.svc
