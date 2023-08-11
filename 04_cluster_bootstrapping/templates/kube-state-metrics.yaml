@@ -8,8 +8,8 @@ metadata:
 spec:
   destination:
 {{ range .Values.spec.destination }}
-    namespace: kube-state-metrics
-    server: {{ .server }}
+    - namespace: kube-state-metrics
+      server: {{ .server }}
 {{ end }}
   project: default
   source:
