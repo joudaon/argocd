@@ -31,3 +31,6 @@ spec:
       syncPolicy:
         syncOptions:
         - CreateNamespace=true
+        managedNamespaceMetadata:
+          labels: 
+            mytestlabel: mytestlabel
