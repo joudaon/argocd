@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    name: nginx-dev
+    name: nginx
 spec:
   project: default
   source:
@@ -18,7 +18,7 @@ spec:
       valueFiles:
         - ../../values/nginx/dev-values.yaml
   destination:
-    server: dev-cluster
+    name: dev-cluster
     namespace: nginx
   info:
     - name: Application url
@@ -26,3 +26,6 @@ spec:
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
+    managedNamespaceMetadata:
+      labels: 
+        mytestlabel: mytestlabel
