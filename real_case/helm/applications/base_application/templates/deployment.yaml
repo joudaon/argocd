@@ -5,6 +5,8 @@ metadata:
   labels:
     app: {{ .Values.app_name }}
     environment: {{ .Values.environment }}
+  annotations:
+    link.argocd.argoproj.io/external-link: http://mycustomurl.com
 spec:
   replicas: {{ .Values.replicas }}
   selector:

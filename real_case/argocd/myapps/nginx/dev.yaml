@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    name: root_app
+    name: nginx-dev
 spec:
   project: default
   source:
@@ -16,10 +16,13 @@ spec:
     helm:
       releaseName: "nginx-dev"
       valueFiles:
-        - ../../values/nginx/dev/dev-values.yaml
+        - ../../values/nginx/dev-values.yaml
   destination:
-    server: https://kubernetes.default.svc
-    namespace: root-app
+    server: dev-cluster
+    namespace: nginx
+  info:
+    - name: Application url
+      value: https://dev.example.com
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
