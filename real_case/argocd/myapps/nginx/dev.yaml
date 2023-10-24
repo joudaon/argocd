@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-dev
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: root_app
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/joudaon/argocd.git
+    targetRevision: HEAD
+    path: "real_case/helm/applications/base_application"
+    helm:
+      releaseName: "nginx-dev"
+      valueFiles:
+        - ../../values/nginx/dev/dev-values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: root-app
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
