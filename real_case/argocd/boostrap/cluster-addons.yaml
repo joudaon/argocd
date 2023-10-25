@@ -27,6 +27,9 @@ spec:
         path: "real_case/helm/applications/cluster_addons/{{path.basename}}"
         helm:
           releaseName: "{{path.basename}}"
+          parameters:
+            - name: cluster_name
+              value: '{{ name }}'
       destination:
         name: '{{ name }}'
         namespace: '{{ path.basename }}'
