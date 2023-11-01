@@ -18,7 +18,7 @@ spec:
       valueFiles:
         - ../../values/nginx/dev-values.yaml
   destination:
-    name: in-cluster
+    name: dev-cluster
     namespace: nginx
   info:
     - name: Application url
