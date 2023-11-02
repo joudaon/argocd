@@ -3,8 +3,6 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.app_name }}
 data:
-  {{- if .Values.animals }}
-  {{- with .Values.animals }}
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+  {{- range $k, $v := .Values.animals }}
+  {{ $k }}:{{ $v | quote }}
   {{- end }}

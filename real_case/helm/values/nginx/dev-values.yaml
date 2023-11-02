@@ -11,3 +11,6 @@ memory_limits: 256
 memory_requests: 56
 node_port: 30002
 replicas: 1
+animals:
+  animal1: dog
+  animal2: cat

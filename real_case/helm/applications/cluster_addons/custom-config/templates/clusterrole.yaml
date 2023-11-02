@@ -4,7 +4,7 @@ metadata:
   # "namespace" omitted since ClusterRoles are not namespaced
   name: secret-reader
   labels:
-    cluster: {{ .Values.cluster_name }}
+    cluster: in-cluster
 rules:
 - apiGroups: [""]
   #

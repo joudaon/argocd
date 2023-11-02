@@ -1,0 +1,1 @@
+- [external secrets github](https://github.com/external-secrets/external-secrets)
