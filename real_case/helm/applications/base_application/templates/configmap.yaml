@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.app_name }}
 data:
-  {{- range $k, $v := .Values.animals }}
-  {{ $k }}:{{ $v | quote }}
+  {{- range $key, $val := .Values.animals }}
+  {{ $key }}: {{ $val | quote }}
   {{- end }}
