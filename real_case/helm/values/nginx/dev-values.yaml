@@ -4,8 +4,8 @@
 
 app_name: nginx
 app_version: latest
-cpu_limits: 0.2
-cpu_requests: 0.1
+cpu_limits: 200m
+cpu_requests: 100m
 environment: dev
 memory_limits: 256
 memory_requests: 56
@@ -14,3 +14,4 @@ replicas: 1
 animals:
   animal1: dog
   animal2: cat
+  animal3: snake
