@@ -11,7 +11,7 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.app_name }}
-    revisionHistoryLimit: 0
+  revisionHistoryLimit: 0
   template:
     metadata:
       labels:
@@ -44,7 +44,9 @@ spec:
               fieldPath: metadata.namespace
         envFrom:
           - configMapRef:
-              name: {{ .Values.app_name }}
+            name: cm-{{ .Values.app_name }}
+          - secretRef:
+            name: secret-{{ .Values.app_name}}
         resources:
           limits:
             cpu: {{ .Values.cpu_limits }}
