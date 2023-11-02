@@ -45,6 +45,7 @@ spec:
         envFrom:
           - configMapRef:
               name: cm-{{ .Values.app_name }}
+        envFrom:
           - secretRef:
               name: secret-{{ .Values.app_name}}
         resources:
