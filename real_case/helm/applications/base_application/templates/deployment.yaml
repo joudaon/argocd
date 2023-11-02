@@ -11,6 +11,7 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.app_name }}
+    revisionHistoryLimit: 0
   template:
     metadata:
       labels:
