@@ -12,6 +12,6 @@ version: 1.0.0
 appVersion: "1.0"
 
 dependencies:
-- name: argo/argocd-image-updater
+- name: argocd-image-updater
   version: 0.9.1
   repository: https://argoproj.github.io/argo-helm
