@@ -1,2 +1,3 @@
 - [argocd-image-updater github](https://github.com/argoproj/argo-helm/tree/main/charts/argocd-image-updater)
 - [artifact hub](https://artifacthub.io/packages/helm/argo/argocd-image-updater)
+- [automation rules example](https://github.com/TheAutomationRules/argocd/tree/main/official/examples)
