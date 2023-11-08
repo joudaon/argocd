@@ -17,9 +17,9 @@ kubectl expose deployment argo-cd-argocd-server --type=NodePort --name=argo-cd-a
 sleep 30s
 
 ## Install External Secrets Operator (https://github.com/external-secrets/external-secrets)(https://github.com/hashicorp/vault-helm/issues/17)
-echo "---> Installing External Secrets Operator"
-helm repo add external-secrets https://charts.external-secrets.io
-helm install external-secrets external-secrets/external-secrets -n external-secrets --create-namespace --wait
+# echo "---> Installing External Secrets Operator"
+# helm repo add external-secrets https://charts.external-secrets.io
+# helm install external-secrets external-secrets/external-secrets -n external-secrets --create-namespace --wait
 
 ## Install Argo Rollouts
 echo "---> Installing Argo Rollouts"
