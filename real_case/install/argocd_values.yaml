@@ -1,0 +1,32 @@
+## Argo CD configuration
+## Ref: https://github.com/argoproj/argo-cd
+## Ref: https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
+
+## Argo Configs
+configs:
+  # General Argo CD configuration
+  ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/argocd-cm.yaml
+  cm:
+    # -- Enable exec feature in Argo UI
+    ## Ref: https://argo-cd.readthedocs.io/en/latest/operator-manual/rbac/#exec-resource
+    exec.enabled: true
+
+    # -- File containing user-defined policies and role definitions.
+    # @default -- `''` (See [values.yaml])
+    policy.csv: |
+      p, role:myrole, exec, create, */*, allow
+
+  ## Enable this and set the rules: to whatever custom rules you want for the Cluster Role resource.
+  ## Defaults to off
+  clusterRoleRules:
+    # -- Enable custom rules for the application controller's ClusterRole resource
+    enabled: false
+    # -- List of custom rules for the application controller's ClusterRole resource
+    rules:
+      - apiGroups:
+        - ""
+        resources:
+        - pods/exec
+        verbs:
+        - create
+ 

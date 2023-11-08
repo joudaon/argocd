@@ -10,8 +10,10 @@ minikube start --addons=dashboard --addons=metrics-server --addons=ingress --add
 ## Install argocd
 echo "---> Installing argocd"
 kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-kubectl expose deployment argocd-server --type=NodePort --name=argocd-service --namespace=argocd
+# kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+helm repo add argo https://argoproj.github.io/argo-helm
+helm install argo-cd argo/argo-cd -f argocd_values.yaml --namespace argocd --create-namespace --wait 
+kubectl expose deployment argo-cd-argocd-server --type=NodePort --name=argo-cd-argocd-service --namespace=argocd
 sleep 30s
 
 ## Install External Secrets Operator (https://github.com/external-secrets/external-secrets)(https://github.com/hashicorp/vault-helm/issues/17)
@@ -37,7 +39,7 @@ kubectl apply -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/rele
 ## Get credentials
 echo "---> Installation finished!"
 CREDFILENAME=credentials.txt
-NODEPORT=$(kubectl get service argocd-service --namespace=argocd -ojsonpath='{.spec.ports[0].nodePort}')
+NODEPORT=$(kubectl get service argo-cd-argocd-service --namespace=argocd -ojsonpath='{.spec.ports[0].nodePort}')
 ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
 echo "argocd URL --> $(minikube ip -p argocd-cluster):$NODEPORT" >> $CREDFILENAME
 echo "argocd username --> admin" >> $CREDFILENAME
