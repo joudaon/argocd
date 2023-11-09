@@ -62,3 +62,6 @@ argocd login $(minikube ip):$NODEPORT --username admin
 - [Cluster add-ons examples](https://github.com/aws-samples/eks-blueprints-add-ons)
 - [Deploying Prometheus and Grafana as Applications Using ArgoCD — Including Dashboards](https://dzone.com/articles/deploying-prometheus-and-grafana-as-applications-u)
 - [How to manage Kubernetes secrets with GitOps?](https://akuity.io/blog/how-to-manage-kubernetes-secrets-gitops/)
+- [](https://github.com/argoproj/argo-cd/issues/9508)
+- [Production Best Practices](https://www.youtube.com/watch?v=ESQLqjbM8h0)
+- [Argo CD Best Practices & Practical Patterns](https://www.youtube.com/watch?v=CJQBtDYA_44)

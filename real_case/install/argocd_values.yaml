@@ -16,6 +16,23 @@ configs:
     policy.csv: |
       p, role:myrole, exec, create, */*, allow
 
+  # Argo CD configuration parameters
+  ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/argocd-cmd-params-cm.yaml
+  params:
+    ## Controller Properties
+    # -- Number of application status processors
+    controller.status.processors: 100
+    # -- Number of application operation processors
+    controller.operation.processors: 10
+    # -- Specifies timeout between application self heal attempts
+    controller.self.heal.timeout.seconds: 5
+    # -- Repo server RPC call timeout seconds.
+    controller.repo.server.timeout.seconds: 60
+
+    ## Repo-server properties
+    # -- Limit on number of concurrent manifests generate requests. Any value less the 1 means no limit.
+    reposerver.parallelism.limit: 5
+
   ## Enable this and set the rules: to whatever custom rules you want for the Cluster Role resource.
   ## Defaults to off
   clusterRoleRules:
@@ -30,3 +47,11 @@ configs:
         verbs:
         - create
  
+## Application controller
+controller:
+  # -- Application controller name string
+  name: application-controller
+
+  # -- The number of application controller pods to run.
+  # Additional replicas will cause sharding of managed clusters across number of replicas.
+  replicas: 2
