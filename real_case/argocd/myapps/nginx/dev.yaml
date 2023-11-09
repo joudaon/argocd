@@ -5,8 +5,9 @@ metadata:
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-  # annotations:
-  #   argocd-image-updater.argoproj.io/image-alias.allow-tags: 'regexp:^1.3.0-SNAPSHOT.[0-9]+$'
+  annotations:
+    argocd.argoproj.io/manifest-generate-paths: .
+    argocd-image-updater.argoproj.io/image-alias.allow-tags: httpd:latest
   #   argocd-image-updater.argoproj.io/image-alias.force-update: 'true'
   #   argocd-image-updater.argoproj.io/image-alias.pull-secret: 'pullsecret:develop-namespace/develop-app-gitlab-secrets'
   #   argocd-image-updater.argoproj.io/image-alias.update-strategy: latest
