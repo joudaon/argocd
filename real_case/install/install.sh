@@ -47,11 +47,11 @@ echo "argocd password --> $ARGOCD_PASSWORD" >> $CREDFILENAME
 
 ## Start Minikube dev-cluster
 echo "--> Instaling minikube dev-cluster"
-minikube start --cpus=2 --memory=4gb -p dev-cluster
+minikube start --addons=metrics-server --cpus=2 --memory=4gb -p dev-cluster
 
 ## Start Minikube pre-cluster
 echo "--> Instaling minikube pre-cluster"
-minikube start --cpus=2 --memory=4gb -p pre-cluster
+minikube start --addons=metrics-server --cpus=2 --memory=4gb -p pre-cluster
 
 ## Go back to argocd-cluster
 echo "--> Switching context to argocd-cluster"

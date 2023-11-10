@@ -32,3 +32,5 @@ spec:
     managedNamespaceMetadata:
       labels: 
         mytestlabel: mytestlabel
+    automated:
+      selfHeal: true
