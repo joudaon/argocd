@@ -19,7 +19,7 @@ spec:
                   - key: name
                     operator: NotIn
                     values: [in-cluster]
-                  - key: enable_{{ path.basename | snakecase }}
+                  - key: enable_{{ path.basename }}
                     operator: In
                     values: ['true']
   template:
