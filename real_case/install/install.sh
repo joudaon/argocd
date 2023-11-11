@@ -61,6 +61,6 @@ minikube profile argocd-cluster
 echo "--> Logging into argocd cluster"
 argocd login $(minikube ip -p argocd-cluster):$NODEPORT --username admin --password $ARGOCD_PASSWORD --insecure 
 echo "--> Adding dev-cluster into argocd"
-argocd cluster add dev-cluster --yes
+argocd cluster add dev-cluster --label environment=dev --label enable_external-secret-operator=true --label enable_keda=true --label enable_kube-state-metrics=true --label enable_kyverno=true --yes
 echo "--> Adding pre-cluster into argocd"
-argocd cluster add pre-cluster --yes
+argocd cluster add pre-cluster --label environment=pre --label enable_external-secret-operator=true --label enable_keda=true --label enable_kube-state-metrics=true --label enable_kyverno=true --yes

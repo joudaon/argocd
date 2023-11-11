@@ -13,7 +13,15 @@ spec:
               revision: HEAD
               directories:
               - path: "real_case/helm/applications/cluster_addons/*"
-          - clusters: {}
+          - clusters:
+              selector:
+                matchExpressions:
+                  - key: name
+                    operator: NotIn
+                    values: [in-cluster]
+                  - key: enable_{{ path.basename | snakecase }}
+                    operator: In
+                    values: ['true']
   template:
     metadata:
       name: "{{path.basename}}-{{name}}"
