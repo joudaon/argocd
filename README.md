@@ -65,3 +65,6 @@ argocd login $(minikube ip):$NODEPORT --username admin
 - [](https://github.com/argoproj/argo-cd/issues/9508)
 - [Production Best Practices](https://www.youtube.com/watch?v=ESQLqjbM8h0)
 - [Argo CD Best Practices & Practical Patterns](https://www.youtube.com/watch?v=CJQBtDYA_44)
+- [Cluster Add-ons with ApplicationSets](https://docs.akuity.io/tutorials/cluster-addons-with-applicationsets/#11-prerequisites)
+- [argocd layout](https://github.com/akuity-cluster-addons-workshop/control-plane)
+- [gitops-bridge](https://github.com/gitops-bridge-dev)
