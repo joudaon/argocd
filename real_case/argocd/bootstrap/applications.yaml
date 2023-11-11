@@ -17,7 +17,7 @@ spec:
       source:
         repoURL: https://github.com/joudaon/argocd.git
         targetRevision: HEAD
-        path: real_case/argocd/myapps
+        path: real_case/argocd/myapps/clusters/{{name}}
         directory:
           recurse: true
       destination:
