@@ -1,0 +1,64 @@
+### https://awstip.com/multiple-cluster-bootstrapping-using-argocd-applicationset-edf5d4be9667
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: addon-keda
+  namespace: argocd
+spec:
+  goTemplate: true
+  syncPolicy:
+    preserveResourcesOnDeletion: false
+  generators:
+    - merge:
+        mergeKeys:
+          - server
+        generators:
+          - clusters:
+              values:
+                addonChart: keda
+                # anything not staging or prod use this version
+                addonChartVersion: 2.11.2
+                addonChartRepository: https://kedacore.github.io/charts
+              selector:
+                matchExpressions:
+                  - key: enable_keda
+                    operator: In
+                    values: ['true']
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: pre
+              values:
+                addonChartVersion: 2.11.2
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: pro
+              values:
+                addonChartVersion: 2.11.2
+  template:
+    metadata:
+      name: "addon-{{.name}}-{{.values.addonChart}}-{{.values.addonChartVersion}}"
+      labels:
+        app_type: addon
+        addon_name: keda
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/joudaon/argocd.git
+        targetRevision: HEAD
+        path: "real_case/helm/applications/cluster_addons/keda"
+        helm:
+          releaseName: "keda"
+          parameters:
+            - name: cluster_name
+              value: '{{ .name }}'
+      destination:
+        name: '{{ .name }}'
+        namespace: 'keda'
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
+        - ServerSideApply=true
