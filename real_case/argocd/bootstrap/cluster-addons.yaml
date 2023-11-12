@@ -1,49 +1,49 @@
-### https://awstip.com/multiple-cluster-bootstrapping-using-argocd-applicationset-edf5d4be9667
-apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
-metadata:
-  name: cluster-addons
-  namespace: argocd
-spec:
-  generators:
-    - matrix:
-        generators:
-          - git:
-              repoURL: https://github.com/joudaon/argocd.git
-              revision: HEAD
-              directories:
-              - path: "real_case/helm/applications/cluster_addons/*"
-          - clusters:
-              selector:
-                matchExpressions:
-                  - key: name
-                    operator: NotIn
-                    values: [in-cluster]
-                  - key: enable_{{ path.basename }}
-                    operator: In
-                    values: ['true']
-  template:
-    metadata:
-      name: "{{path.basename}}-{{name}}"
-      labels:
-        app_type: systemApp
-    spec:
-      project: default
-      source:
-        repoURL: https://github.com/joudaon/argocd.git
-        targetRevision: HEAD
-        path: "real_case/helm/applications/cluster_addons/{{path.basename}}"
-        helm:
-          releaseName: "{{path.basename}}"
-          parameters:
-            - name: cluster_name
-              value: '{{ name }}'
-      destination:
-        name: '{{ name }}'
-        namespace: '{{ path.basename }}'
-      syncPolicy:
-        automated:
-          selfHeal: true
-        syncOptions:
-        - CreateNamespace=true
-        - ServerSideApply=true
+# ### https://awstip.com/multiple-cluster-bootstrapping-using-argocd-applicationset-edf5d4be9667
+# apiVersion: argoproj.io/v1alpha1
+# kind: ApplicationSet
+# metadata:
+#   name: cluster-addons
+#   namespace: argocd
+# spec:
+#   generators:
+#     - matrix:
+#         generators:
+#           - git:
+#               repoURL: https://github.com/joudaon/argocd.git
+#               revision: HEAD
+#               directories:
+#               - path: "real_case/helm/applications/cluster_addons/*"
+#           - clusters:
+#               selector:
+#                 matchExpressions:
+#                   - key: name
+#                     operator: NotIn
+#                     values: [in-cluster]
+#                   - key: enable_{{ path.basename }}
+#                     operator: In
+#                     values: ['true']
+#   template:
+#     metadata:
+#       name: "{{path.basename}}-{{name}}"
+#       labels:
+#         app_type: systemApp
+#     spec:
+#       project: default
+#       source:
+#         repoURL: https://github.com/joudaon/argocd.git
+#         targetRevision: HEAD
+#         path: "real_case/helm/applications/cluster_addons/{{path.basename}}"
+#         helm:
+#           releaseName: "{{path.basename}}"
+#           parameters:
+#             - name: cluster_name
+#               value: '{{ name }}'
+#       destination:
+#         name: '{{ name }}'
+#         namespace: '{{ path.basename }}'
+#       syncPolicy:
+#         automated:
+#           selfHeal: true
+#         syncOptions:
+#         - CreateNamespace=true
+#         - ServerSideApply=true
