@@ -23,6 +23,8 @@ spec:
       containers:
       - name: {{ .Values.app_name }}
         image: httpd:{{ .Values.app_version }} # <-- {{ .Values.app_name }} IMAGE
+        securityContext:
+          allowPrivilegeEscalation: false
         lifecycle:
           postStart:
             exec:
