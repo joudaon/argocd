@@ -1,0 +1,32 @@
+### https://awstip.com/multiple-cluster-bootstrapping-using-argocd-applicationset-edf5d4be9667
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: applications
+  namespace: argocd
+spec:
+  generators:
+    - clusters:
+        selector:
+          matchExpressions:
+            - key: environment
+              operator: In
+              values: ['pre']
+  template:
+    metadata:
+      name: apps-{{name}}
+      labels:
+        app_type: systemApp
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/joudaon/argocd.git
+        targetRevision: HEAD
+        path: real_case/argocd/myapps/clusters/{{name}}
+        directory:
+          recurse: true
+      destination:
+        name: in-cluster
+        namespace: argocd
+      syncPolicy:
+        automated: {}
