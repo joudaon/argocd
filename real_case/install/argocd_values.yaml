@@ -46,7 +46,7 @@ configs:
         - pods/exec
         verbs:
         - create
- 
+
 ## Application controller
 controller:
   # -- Application controller name string
