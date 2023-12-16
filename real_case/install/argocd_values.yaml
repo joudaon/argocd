@@ -55,3 +55,8 @@ controller:
   # -- The number of application controller pods to run.
   # Additional replicas will cause sharding of managed clusters across number of replicas.
   replicas: 2
+
+## Server service configuration
+server:
+  service:
+    type: NodePort
