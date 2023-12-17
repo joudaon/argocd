@@ -1,0 +1,1 @@
+Once deployed, get "Ingress" address and add it into /etc/hosts file with the "argocd.example.com" domain and the browse to "argocd.example.com".

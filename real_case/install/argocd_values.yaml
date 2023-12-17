@@ -56,7 +56,19 @@ controller:
   # Additional replicas will cause sharding of managed clusters across number of replicas.
   replicas: 2
 
-## Server service configuration
+## Server service configuration -> https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#kubernetesingress-nginx
 server:
-  service:
-    type: NodePort
+  # service:
+  #   type: ClusterIP
+  ingress:
+    enabled: true
+    hosts:
+      - argocd.example.com
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    # tls: 
+    #   - secretName: ingress-tls
+    #     hosts:
+    #       - argocd.example.com
