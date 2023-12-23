@@ -5,9 +5,9 @@ metadata:
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-  # annotations:
-    # argocd.argoproj.io/manifest-generate-paths: .
-    # argocd-image-updater.argoproj.io/image-list: httpd:latest
+  annotations:
+    argocd.argoproj.io/manifest-generate-paths: .
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   labels:
     name: nginx
 spec:
