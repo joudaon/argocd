@@ -7,6 +7,8 @@ metadata:
     environment: {{ .Values.environment }}
   annotations:
     link.argocd.argoproj.io/external-link: http://mycustomurl.com
+    configmap.reloader.stakater.com/reload: cm-{{ .Values.app_name }}
+    secret.reloader.stakater.com/reload: secret-{{ .Values.app_name }}
 spec:
   selector:
     matchLabels:
