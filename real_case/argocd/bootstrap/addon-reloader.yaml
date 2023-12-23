@@ -49,7 +49,7 @@ spec:
         repoURL: https://stakater.github.io/stakater-charts
         targetRevision: 1.0.56
         helm:
-          releaseName: {{.values.addonChart}}
+          releaseName: reloader
           parameters:
             - name: cluster_name
               value: '{{ .name }}'
