@@ -45,9 +45,9 @@ spec:
     spec:
       project: default
       source:
-        chart: '{{.values.addonChart}}'
-        repoURL: '{{.values.addonChartRepository}}'
-        targetRevision: '{{.values.addonChartVersion}}'
+        chart: reloader
+        repoURL: https://stakater.github.io/stakater-charts
+        targetRevision: 1.0.56
         helm:
           releaseName: {{.values.addonChart}}
           parameters:
