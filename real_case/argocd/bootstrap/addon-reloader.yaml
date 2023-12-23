@@ -45,9 +45,9 @@ spec:
     spec:
       project: default
       source:
-        chart: {{.values.addonChart}}
-        repoURL: {{.values.addonChartRepository}}
-        targetRevision: {{.values.addonChartVersion}}
+        chart: '{{.values.addonChart}}'
+        repoURL: '{{.values.addonChartRepository}}'
+        targetRevision: '{{.values.addonChartVersion}}'
         helm:
           releaseName: {{.values.addonChart}}
           parameters:
