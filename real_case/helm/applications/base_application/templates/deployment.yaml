@@ -20,7 +20,7 @@ spec:
         app: {{ .Values.app_name }}
       annotations:
         # checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-        rollme: {{ randAlphaNum 15 | quote }}
+        # rollme: {{ randAlphaNum 15 | quote }}
     spec:
       containers:
       - name: {{ .Values.app_name }}
