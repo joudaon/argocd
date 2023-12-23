@@ -5,8 +5,8 @@ minikube config set driver virtualbox
 
 ## Start Minikube
 echo "--> Instaling minikube argocd-cluster"
-# minikube start --addons=dashboard --addons=metrics-server --addons=ingress --addons=registry --cpus=2 --memory=8gb -p argocd-cluster
-minikube start --addons=ingress --cpus=2 --memory=8gb -p argocd-cluster
+minikube start --addons=dashboard --addons=metrics-server --addons=ingress --addons=registry --cpus=2 --memory=8gb -p argocd-cluster
+# minikube start --addons=ingress --cpus=2 --memory=8gb -p argocd-cluster
 sleep 30s
 
 # ## Create server certificates
