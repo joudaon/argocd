@@ -1,2 +1,0 @@
-- [external secrets github](https://github.com/external-secrets/external-secrets)
-- [artifact hub](https://artifacthub.io/packages/helm/external-secrets-operator/external-secrets)
