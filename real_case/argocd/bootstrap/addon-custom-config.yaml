@@ -17,7 +17,7 @@ spec:
               values: ['dev','pre','pro']
   template:
     metadata:
-      name: "addon-{{.name}}-{{.values.addonChart}}-{{.values.addonChartVersion}}"
+      name: "addon-{{.name}}-custom-config"
       labels:
         app_type: addon
         addon_name: custom-config
