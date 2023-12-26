@@ -13,7 +13,7 @@ spec:
         selector: 
           matchExpressions:
             - key: environment
-              operator: in
+              operator: In
               values: ['dev','pre','pro']
   template:
     metadata:
