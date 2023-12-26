@@ -1,0 +1,64 @@
+### https://awstip.com/multiple-cluster-bootstrapping-using-argocd-applicationset-edf5d4be9667
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: addon-kube-state-metrics
+  namespace: argocd
+spec:
+  goTemplate: true
+  syncPolicy:
+    preserveResourcesOnDeletion: false
+  generators:
+    - merge:
+        mergeKeys:
+          - server
+        generators:
+          - clusters:
+              values:
+                addonChart: kube-state-metrics
+                # anything not staging or prod use this version
+                addonChartVersion: 5.15.2
+                addonChartRepository: https://prometheus-community.github.io/helm-charts
+              selector:
+                matchExpressions:
+                  - key: enable_kube-state-metrics
+                    operator: In
+                    values: ['true']
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: pre
+              values:
+                addonChartVersion: 5.15.0
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: pro
+              values:
+                addonChartVersion: 5.15.0
+  template:
+    metadata:
+      name: "addon-{{.name}}-{{.values.addonChart}}-{{.values.addonChartVersion}}"
+      labels:
+        app_type: addon
+        addon_name: kube-state-metrics
+    spec:
+      project: default
+      source:
+        chart: '{{.values.addonChart}}'
+        repoURL: '{{.values.addonChartRepository}}'
+        targetRevision: '{{.values.addonChartVersion}}'
+        helm:
+          releaseName: kube-state-metrics
+          parameters:
+            - name: cluster_name
+              value: '{{ .name }}'
+      destination:
+        name: '{{ .name }}'
+        namespace: 'kube-state-metrics'
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
+        - ServerSideApply=true

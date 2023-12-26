@@ -40,5 +40,7 @@ spec:
             - kyverno
             - external-secrets
             - keda
+            - kube-state-metrics
+            - metricbeat
             - reloader
 
