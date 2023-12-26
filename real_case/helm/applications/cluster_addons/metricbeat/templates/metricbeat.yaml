@@ -177,10 +177,7 @@ spec:
         - name: ELASTICSEARCH_USERNAME
           value: elastic
         - name: ELASTICSEARCH_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              key: password
-              name: elasticsearch-master-credentials
+          value: changeme
         - name: NODE_NAME
           valueFrom:
             fieldRef:
