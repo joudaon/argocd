@@ -29,13 +29,13 @@ spec:
                 matchLabels:
                   environment: pre
               values:
-                addonChartVersion: 1.0.56
+                addonChartVersion: 1.0.55
           - clusters:
               selector:
                 matchLabels:
                   environment: pro
               values:
-                addonChartVersion: 1.0.56
+                addonChartVersion: 1.0.55
   template:
     metadata:
       name: "addon-{{.name}}-{{.values.addonChart}}-{{.values.addonChartVersion}}"
@@ -45,9 +45,9 @@ spec:
     spec:
       project: default
       source:
-        chart: reloader
-        repoURL: https://stakater.github.io/stakater-charts
-        targetRevision: 1.0.56
+        chart: '{{.values.addonChart}}'
+        repoURL: '{{.values.addonChartRepository}}'
+        targetRevision: '{{.values.addonChartVersion}}'
         helm:
           releaseName: reloader
           parameters:
