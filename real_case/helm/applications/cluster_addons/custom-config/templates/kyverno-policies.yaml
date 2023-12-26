@@ -29,3 +29,16 @@ spec:
         metadata:
           labels:
             owner: "I am the owner"
+    exclude:
+      any:
+      - resources:
+          namespaces:
+            - kube-system
+            - default
+            - kube-node-lease
+            - kube-public
+            - kyverno
+            - external-secrets
+            - keda
+            - reloader
+
