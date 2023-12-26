@@ -28,7 +28,7 @@ spec:
       pattern:
         metadata:
           labels:
-            owner: "I am the owner"
+            owner: "myself"
     exclude:
       any:
       - resources:
