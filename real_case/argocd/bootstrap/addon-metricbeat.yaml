@@ -38,7 +38,7 @@ spec:
                 addonChartVersion: HEAD
   template:
     metadata:
-      name: "addon-{{.name}}-{{.values.addonChart}}-{{.values.addonChartVersion}}"
+      name: "addon-{{.name}}-{{.values.addonChart}}"
       labels:
         app_type: addon
         addon_name: metricbeat
