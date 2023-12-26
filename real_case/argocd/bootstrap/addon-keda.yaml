@@ -29,13 +29,13 @@ spec:
                 matchLabels:
                   environment: pre
               values:
-                addonChartVersion: 2.11.2
+                addonChartVersion: 2.11.1
           - clusters:
               selector:
                 matchLabels:
                   environment: pro
               values:
-                addonChartVersion: 2.11.2
+                addonChartVersion: 2.11.1
   template:
     metadata:
       name: "addon-{{.name}}-{{.values.addonChart}}-{{.values.addonChartVersion}}"
@@ -45,11 +45,11 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/joudaon/argocd.git
-        targetRevision: HEAD
-        path: "real_case/helm/applications/cluster_addons/keda"
+        chart: '{{.values.addonChart}}'
+        repoURL: '{{.values.addonChartRepository}}'
+        targetRevision: '{{.values.addonChartVersion}}'
         helm:
-          releaseName: "keda"
+          releaseName: keda
           parameters:
             - name: cluster_name
               value: '{{ .name }}'
