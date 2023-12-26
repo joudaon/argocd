@@ -1,0 +1,43 @@
+### https://awstip.com/multiple-cluster-bootstrapping-using-argocd-applicationset-edf5d4be9667
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: addon-custom-config
+  namespace: argocd
+spec:
+  goTemplate: true
+  syncPolicy:
+    preserveResourcesOnDeletion: false
+  generators:
+    - clusters:
+        selector: 
+          matchExpressions:
+            - key: environment
+              operator: in
+              values: ['dev','pre','pro']
+  template:
+    metadata:
+      name: "addon-{{.name}}-{{.values.addonChart}}-{{.values.addonChartVersion}}"
+      labels:
+        app_type: addon
+        addon_name: custom-config
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/joudaon/argocd.git
+        targetRevision: HEAD
+        path: "real_case/helm/applications/cluster_addons/custom-config"
+        helm:
+          releaseName: "custom-config"
+          parameters:
+            - name: cluster_name
+              value: '{{ .name }}'
+      destination:
+        name: '{{ .name }}'
+        namespace: 'custom-config'
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
+        - ServerSideApply=true
