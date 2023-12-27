@@ -19,6 +19,7 @@ spec:
     metadata:
       labels:
         app: {{ .Values.app_name }}
+        owner: 'myself'
       annotations:
         # checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         # rollme: {{ randAlphaNum 15 | quote }}
