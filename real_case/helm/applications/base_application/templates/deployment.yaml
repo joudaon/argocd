@@ -5,6 +5,7 @@ metadata:
   labels:
     app: {{ .Values.app_name }}
     environment: {{ .Values.environment }}
+    owner: 'myself'
   annotations:
     link.argocd.argoproj.io/external-link: http://mycustomurl.com
     configmap.reloader.stakater.com/reload: cm-{{ .Values.app_name }}
@@ -18,7 +19,6 @@ spec:
     metadata:
       labels:
         app: {{ .Values.app_name }}
-        owner: 'myself'
       annotations:
         # checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         # rollme: {{ randAlphaNum 15 | quote }}
