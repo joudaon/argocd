@@ -17,7 +17,7 @@ spec:
               values: ['dev','pre','pro']
   template:
     metadata:
-      name: "ad-custom-config-{{.name}}-"
+      name: "ad-custom-config-{{.name}}"
       labels:
         app_type: addon
         addon_name: custom-config
