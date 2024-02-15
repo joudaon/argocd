@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-dev-1
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/manifest-generate-paths: .
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  labels:
+    name: nginx-1
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/joudaon/argocd.git
+    targetRevision: HEAD
+    path: "real_case/helm/applications/base_application"
+    helm:
+      releaseName: "nginx-dev-1"
+      valueFiles:
+        - ../../values/nginx/dev-values.yaml
+  destination:
+    name: dev-cluster
+    namespace: nginx-1
+  info:
+    - name: Application url
+      value: https://dev.example.com
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    - Replace=true
+    managedNamespaceMetadata:
+      labels: 
+        mytestlabel: mytestlabel
+    automated:
+      selfHeal: true
