@@ -59,7 +59,7 @@ spec:
               value: rancher
       destination:
         name: '{{ .name }}'
-        namespace: rancher
+        namespace: cattle-system
       syncPolicy:
         automated:
           selfHeal: true
