@@ -1,0 +1,68 @@
+### https://artifacthub.io/packages/helm/rancher-stable/rancher
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: addon-rancher
+  namespace: argocd
+spec:
+  goTemplate: true
+  syncPolicy:
+    preserveResourcesOnDeletion: false
+  generators:
+    - merge:
+        mergeKeys:
+          - server
+        generators:
+          - clusters:
+              values:
+                addonChart: rancher
+                # anything not staging or prod use this version
+                addonChartVersion: 2.8.2
+                addonChartRepository:  https://releases.rancher.com/server-charts/stable
+              selector:
+                matchExpressions:
+                  - key: enable_rancher
+                    operator: In
+                    values: ['true']
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: pre
+              values:
+                addonChartVersion: 2.8.2
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: pro
+              values:
+                addonChartVersion: 2.8.2
+  template:
+    metadata:
+      name: "addon-{{.values.addonChart}}-{{.values.addonChartVersion}}-{{.name}}"
+      labels:
+        app_type: addon
+        addon_name: rancher
+    spec:
+      project: default
+      source:
+        chart: '{{.values.addonChart}}'
+        repoURL: '{{.values.addonChartRepository}}'
+        targetRevision: '{{.values.addonChartVersion}}'
+        helm:
+          releaseName: rancher
+          parameters:
+            - name: cluster_name
+              value: '{{ .name }}'
+            - name: hostname
+              value: rancher.myorg.com
+            - name: ingress.tls.source
+              value: rancher
+      destination:
+        name: '{{ .name }}'
+        namespace: rancher
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
+        - ServerSideApply=true
