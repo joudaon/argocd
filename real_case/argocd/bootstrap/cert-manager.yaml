@@ -53,6 +53,8 @@ spec:
           parameters:
             - name: cluster_name
               value: '{{ .name }}'
+            - name: installCRDs
+              value: 'true'
       destination:
         name: '{{ .name }}'
         namespace: cert-manager
