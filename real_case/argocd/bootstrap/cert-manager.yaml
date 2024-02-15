@@ -1,0 +1,64 @@
+### https://artifacthub.io/packages/helm/cert-manager/cert-manager
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: addon-cert-manager
+  namespace: argocd
+spec:
+  goTemplate: true
+  syncPolicy:
+    preserveResourcesOnDeletion: false
+  generators:
+    - merge:
+        mergeKeys:
+          - server
+        generators:
+          - clusters:
+              values:
+                addonChart: cert-manager
+                # anything not staging or prod use this version
+                addonChartVersion: v1.14.2
+                addonChartRepository: https://charts.jetstack.io
+              selector:
+                matchExpressions:
+                  - key: enable_rancher
+                    operator: In
+                    values: ['true']
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: pre
+              values:
+                addonChartVersion: v1.14.2
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: pro
+              values:
+                addonChartVersion: v1.14.2
+  template:
+    metadata:
+      name: "addon-{{.values.addonChart}}-{{.values.addonChartVersion}}-{{.name}}"
+      labels:
+        app_type: addon
+        addon_name: cert-manager
+    spec:
+      project: default
+      source:
+        chart: '{{.values.addonChart}}'
+        repoURL: '{{.values.addonChartRepository}}'
+        targetRevision: '{{.values.addonChartVersion}}'
+        helm:
+          releaseName: cert-manager
+          parameters:
+            - name: cluster_name
+              value: '{{ .name }}'
+      destination:
+        name: '{{ .name }}'
+        namespace: cert-manager
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
+        - ServerSideApply=true
