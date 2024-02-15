@@ -32,7 +32,7 @@ echo "---> Installation finished!"
 CREDFILENAME=credentials.txt
 # NODEPORT=$(kubectl get service argo-argocd-server --namespace=argocd -ojsonpath='{.spec.ports[0].nodePort}')
 ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
-echo "argocd URL --> argocd.example.com" >> $CREDFILENAME
+echo "argocd URL --> argocd.myorg.com" >> $CREDFILENAME
 echo "argocd username --> admin" >> $CREDFILENAME
 echo "argocd password --> $ARGOCD_PASSWORD" >> $CREDFILENAME
 
@@ -51,12 +51,12 @@ minikube profile argocd-cluster
 ## Sleep 1 minute to update etc/hosts file
 echo "--> Update /etc/hosts file"
 INGRESS_IP=$(kubectl get ingress -n argocd -o jsonpath="{.items[0].status.loadBalancer.ingress[0].ip}")
-echo "$INGRESS_IP argocd.example.com"
+echo "$INGRESS_IP argocd.myorg.com"
 sleep 1m
 
 ## Adding dev/pre-cluster to argocd
 echo "--> Logging into argocd cluster"
-argocd login argocd.example.com --username admin --password $ARGOCD_PASSWORD --insecure --grpc-web
+argocd login argocd.myorg.com --username admin --password $ARGOCD_PASSWORD --insecure --grpc-web
 echo "--> Adding dev-cluster into argocd"
 argocd cluster add dev-cluster --label environment=dev --label enable_external-secrets=true --label enable_keda=true --label enable_kube-state-metrics=true --label enable_reloader=true --label enable_kyverno=true --yes --grpc-web
 echo "--> Adding pre-cluster into argocd"
