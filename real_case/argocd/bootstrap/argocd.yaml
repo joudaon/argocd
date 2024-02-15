@@ -1,3 +1,4 @@
+# https://artifacthub.io/packages/helm/argo/argo-cd
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -14,7 +15,7 @@ spec:
   project: default
   sources:
     - repoURL: https://argoproj.github.io/argo-helm
-      targetRevision: 5.51.6 # https://artifacthub.io/packages/helm/argo/argo-cd # https://github.com/argoproj/argo-helm/releases
+      targetRevision: 6.0.14 # https://artifacthub.io/packages/helm/argo/argo-cd # https://github.com/argoproj/argo-helm/releases
       chart: argo-cd
       helm:
         releaseName: argo

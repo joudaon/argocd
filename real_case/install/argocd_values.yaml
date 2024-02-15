@@ -62,8 +62,7 @@ server:
   #   type: ClusterIP
   ingress:
     enabled: true
-    hosts:
-      - argocd.example.com
+    hostname: argocd.myorg.com
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/ssl-passthrough: "true"
