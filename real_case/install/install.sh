@@ -5,7 +5,7 @@ minikube config set driver virtualbox
 
 ## Start Minikube
 echo "--> Instaling minikube argocd-cluster"
-minikube start --addons=dashboard --addons=metrics-server --addons=ingress --addons=registry --cpus=2 --memory=8gb -p argocd-cluster
+minikube start --addons=dashboard --addons=metrics-server --addons=ingress --addons=registry --cpus=2 --memory=6gb -p argocd-cluster
 # minikube start --addons=ingress --cpus=2 --memory=8gb -p argocd-cluster
 sleep 30s
 
@@ -20,7 +20,7 @@ sleep 30s
 echo "---> Installing argocd"
 helm repo add argo https://argoproj.github.io/argo-helm
 helm repo update
-helm install argo argo/argo-cd -f argocd_values.yaml --namespace argocd --version 5.51.6 --create-namespace --wait 
+helm install argo argo/argo-cd -f argocd_values.yaml --namespace argocd --version 6.0.14 --create-namespace --wait 
 sleep 30s
 
 # Bootstrap argo apps
@@ -38,11 +38,11 @@ echo "argocd password --> $ARGOCD_PASSWORD" >> $CREDFILENAME
 
 ## Start Minikube dev-cluster
 echo "--> Instaling minikube dev-cluster"
-minikube start --addons=metrics-server --cpus=2 --memory=4gb -p dev-cluster
+minikube start --addons=ingress --addons=metrics-server --cpus=2 --memory=6gb -p dev-cluster
 
 ## Start Minikube pre-cluster
 echo "--> Instaling minikube pre-cluster"
-minikube start --addons=metrics-server --cpus=2 --memory=4gb -p pre-cluster
+minikube start --addons=ingress --addons=metrics-server --cpus=2 --memory=4gb -p pre-cluster
 
 ## Go back to argocd-cluster
 echo "--> Switching context to argocd-cluster"
@@ -58,6 +58,6 @@ sleep 1m
 echo "--> Logging into argocd cluster"
 argocd login argocd.myorg.com --username admin --password $ARGOCD_PASSWORD --insecure --grpc-web
 echo "--> Adding dev-cluster into argocd"
-argocd cluster add dev-cluster --label environment=dev --label enable_external-secrets=true --label enable_keda=true --label enable_kube-state-metrics=true --label enable_reloader=true --label enable_kyverno=true --yes --grpc-web
+argocd cluster add dev-cluster --label environment=dev --label enable_external-secrets=true --label enable_keda=true --label enable_kube-state-metrics=false --label enable_reloader=true --label enable_kyverno=false --label enable_rancher=true --yes --grpc-web
 echo "--> Adding pre-cluster into argocd"
-argocd cluster add pre-cluster --label environment=pre --label enable_external-secrets=true --label enable_keda=true --label enable_kube-state-metrics=true --label enable_reloader=true --label enable_kyverno=true --yes --grpc-web
+argocd cluster add pre-cluster --label environment=pre --label enable_external-secrets=true --label enable_keda=true --label enable_kube-state-metrics=false --label enable_reloader=true --label enable_kyverno=false --yes --grpc-web

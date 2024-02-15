@@ -38,7 +38,7 @@ spec:
                 addonChartVersion: 1.0.55
   template:
     metadata:
-      name: "addon-{{.name}}-{{.values.addonChart}}-{{.values.addonChartVersion}}"
+      name: "ad-{{.values.addonChart}}-{{.values.addonChartVersion}}-{{.name}}"
       labels:
         app_type: addon
         addon_name: reloader

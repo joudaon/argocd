@@ -38,7 +38,7 @@ spec:
                 addonChartVersion: v1.14.2
   template:
     metadata:
-      name: "addon-{{.values.addonChart}}-{{.values.addonChartVersion}}-{{.name}}"
+      name: "ad-{{.values.addonChart}}-{{.values.addonChartVersion}}-{{.name}}"
       labels:
         app_type: addon
         addon_name: cert-manager

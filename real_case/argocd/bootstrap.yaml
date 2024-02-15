@@ -13,6 +13,4 @@ spec:
     repoURL: https://github.com/joudaon/argocd.git
     targetRevision: HEAD
   syncPolicy:
-    automated:
-      allowEmpty: false
-      prune: false
+    automated: {}

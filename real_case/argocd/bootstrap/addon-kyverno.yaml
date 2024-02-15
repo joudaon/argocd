@@ -44,7 +44,7 @@ spec:
                 addonChartVersion: v2.3.4
   template:
     metadata:
-      name: "addon-{{.name}}-{{.values.addonChart}}-{{.values.addonChartVersion}}"
+      name: "ad-{{.values.addonChart}}-{{.values.addonChartVersion}}-{{.name}}"
       labels:
         app_type: addon
         addon_name: kyverno
