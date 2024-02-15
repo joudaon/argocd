@@ -17,7 +17,7 @@ spec:
     targetRevision: HEAD
     path: "real_case/helm/applications/base_application"
     helm:
-      releaseName: "nginx-dev-1"
+      releaseName: nginx-1
       valueFiles:
         - ../../values/nginx/dev-values.yaml
   destination:

@@ -22,7 +22,7 @@ spec:
     targetRevision: HEAD
     path: "real_case/helm/applications/base_application"
     helm:
-      releaseName: "nginx-pre"
+      releaseName: nginx
       valueFiles:
         - ../../values/nginx/pre-values.yaml
   destination:
