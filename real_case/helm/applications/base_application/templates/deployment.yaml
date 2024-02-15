@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.app_name }}
+  name: {{ .Release.Name }}
   labels:
-    app: {{ .Values.app_name }}
+    app: {{ .Release.Name }}
     environment: {{ .Values.environment }}
     owner: 'myself'
   annotations:
     link.argocd.argoproj.io/external-link: http://mycustomurl.com
-    configmap.reloader.stakater.com/reload: cm-{{ .Values.app_name }}
-    secret.reloader.stakater.com/reload: secret-{{ .Values.app_name }}
+    configmap.reloader.stakater.com/reload: cm-{{ .Release.Name }}
+    secret.reloader.stakater.com/reload: secret-{{ .Release.Name }}
 spec:
   selector:
     matchLabels:
-      app: {{ .Values.app_name }}
+      app: {{ .Release.Name }}
   revisionHistoryLimit: 0
   template:
     metadata:
       labels:
-        app: {{ .Values.app_name }}
+        app: {{ .Release.Name }}
         owner: 'myself'
       annotations:
         # checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         # rollme: {{ randAlphaNum 15 | quote }}
     spec:
       containers:
-      - name: {{ .Values.app_name }}
-        image: httpd:{{ .Values.app_version }} # <-- {{ .Values.app_name }} IMAGE
+      - name: {{ .Release.Name }}
+        image: httpd:{{ .Values.app_version }} # <-- {{ .Release.Name }} IMAGE
         securityContext:
           allowPrivilegeEscalation: false
         lifecycle:
@@ -51,7 +51,7 @@ spec:
               fieldPath: metadata.namespace
         envFrom:
           - configMapRef:
-              name: cm-{{ .Values.app_name }}
+              name: cm-{{ .Release.Name }}
           - secretRef:
               name: secret-{{ .Values.app_name}}
         resources:

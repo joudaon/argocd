@@ -2,12 +2,12 @@
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: {{ .Values.app_name }}
+  name: {{ .Release.Name }}
   labels:
-    deploymentName: {{ .Values.app_name }}
+    deploymentName: {{ .Release.Name }}
 spec:
   scaleTargetRef:
-    name: {{ .Values.app_name }}
+    name: {{ .Release.Name }}
   pollingInterval: 10 # Optional. Default: 30 seconds
   cooldownPeriod: 5 # Optional. Default: 300 seconds
   minReplicaCount: 1 # Optional. Default: 0
