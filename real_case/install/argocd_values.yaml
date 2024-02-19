@@ -17,7 +17,7 @@ configs:
       p, role:myrole, exec, create, */*, allow
 
   # cluster.inClusterEnabled indicates whether to allow in-cluster server address. This is enabled by default.
-  cluster.inClusterEnabled: "true"
+  cluster.inClusterEnabled: "false"
 
   # Argo CD configuration parameters
   ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/argocd-cmd-params-cm.yaml
