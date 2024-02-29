@@ -11,11 +11,6 @@ configs:
     ## Ref: https://argo-cd.readthedocs.io/en/latest/operator-manual/rbac/#exec-resource
     exec.enabled: true
 
-    # -- File containing user-defined policies and role definitions.
-    # @default -- `''` (See [values.yaml])
-    policy.csv: |
-      p, role:myrole, exec, create, */*, allow
-
     # cluster.inClusterEnabled indicates whether to allow in-cluster server address. This is enabled by default. (https://github.com/argoproj/argo-cd/issues/14531)
     cluster.inClusterEnabled: "true"
 
@@ -35,6 +30,14 @@ configs:
     ## Repo-server properties
     # -- Limit on number of concurrent manifests generate requests. Any value less the 1 means no limit.
     reposerver.parallelism.limit: 5
+
+  # Argo CD RBAC policy configuration
+  ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/rbac.md
+  rbac:
+    # -- File containing user-defined policies and role definitions.
+    # @default -- `''` (See [values.yaml])
+      policy.csv: |
+        p, role:myrole, exec, create, */*, allow
 
   ## Enable this and set the rules: to whatever custom rules you want for the Cluster Role resource.
   ## Defaults to off
