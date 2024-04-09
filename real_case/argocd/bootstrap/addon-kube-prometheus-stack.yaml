@@ -51,7 +51,7 @@ spec:
         helm:
           releaseName: kube-prometheus-stack
           valueFiles:
-            - ../helm/values/prometheus/values.yaml
+            - ../../helm/values/prometheus/values.yaml
       destination:
         name: '{{ .name }}'
         namespace: monitoring
