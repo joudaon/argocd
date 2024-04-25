@@ -62,6 +62,32 @@ controller:
   # Additional replicas will cause sharding of managed clusters across number of replicas.
   replicas: 2
 
+  ## Server metrics service configuration
+  metrics:
+    # -- Deploy metrics service
+    enabled: true
+    serviceMonitor:
+      # -- Enable a prometheus ServiceMonitor
+      enabled: true
+
+dex:
+  ## Server metrics service configuration
+  metrics:
+    # -- Deploy metrics service
+    enabled: true
+    serviceMonitor:
+      # -- Enable a prometheus ServiceMonitor
+      enabled: true
+
+redis:
+  ## Server metrics service configuration
+  metrics:
+    # -- Deploy metrics service
+    enabled: true
+    serviceMonitor:
+      # -- Enable a prometheus ServiceMonitor
+      enabled: true
+
 ## Server service configuration -> https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#kubernetesingress-nginx
 server:
   # service:
@@ -77,3 +103,49 @@ server:
     #   - secretName: ingress-tls
     #     hosts:
     #       - argocd.example.com
+  ## Server metrics service configuration
+  metrics:
+    # -- Deploy metrics service
+    enabled: true
+    serviceMonitor:
+      # -- Enable a prometheus ServiceMonitor
+      enabled: true
+      # -- Prometheus ServiceMonitor labels
+      additionalLabels:
+        release: prometheus
+
+repoServer:
+  ## Server metrics service configuration
+  metrics:
+    # -- Deploy metrics service
+    enabled: true
+    serviceMonitor:
+      # -- Enable a prometheus ServiceMonitor
+      enabled: true
+      # -- Prometheus ServiceMonitor labels
+      additionalLabels:
+        release: prometheus
+
+applicationSet:
+  ## Server metrics service configuration
+  metrics:
+    # -- Deploy metrics service
+    enabled: true
+    serviceMonitor:
+      # -- Enable a prometheus ServiceMonitor
+      enabled: true
+      # -- Prometheus ServiceMonitor labels
+      additionalLabels:
+        release: prometheus
+
+notifications:
+  ## Server metrics service configuration
+  metrics:
+    # -- Deploy metrics service
+    enabled: true
+    serviceMonitor:
+      # -- Enable a prometheus ServiceMonitor
+      enabled: true
+      # -- Prometheus ServiceMonitor labels
+      additionalLabels:
+        release: prometheus
