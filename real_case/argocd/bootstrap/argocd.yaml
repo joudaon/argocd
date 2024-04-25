@@ -18,7 +18,7 @@ spec:
       targetRevision: 6.0.14 # https://artifacthub.io/packages/helm/argo/argo-cd # https://github.com/argoproj/argo-helm/releases
       chart: argo-cd
       helm:
-        releaseName: argo
+        releaseName: argocd
         valueFiles:
           - $values/real_case/install/argocd_values.yaml
     - repoURL: https://github.com/joudaon/argocd.git
