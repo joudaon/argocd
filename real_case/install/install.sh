@@ -1,11 +1,14 @@
 #!/bin/bash
 
+K8S_VERSION=v1.29.0
+ARGOCD_VERSION=6.0.14
+
 ## Set virtualbox as default driver
 minikube config set driver virtualbox
 
 ## Start Minikube
 echo "--> Instaling minikube argocd-cluster"
-minikube start --addons=dashboard --addons=metrics-server --addons=ingress --addons=registry --cpus=2 --memory=6gb -p argocd-cluster
+minikube start --addons=dashboard --addons=metrics-server --addons=ingress --addons=registry --cpus=2 --memory=6gb --kubernetes-version=$K8S_VERSION -p argocd-cluster
 # minikube start --addons=ingress --cpus=2 --memory=8gb -p argocd-cluster
 sleep 30s
 
@@ -20,7 +23,7 @@ sleep 30s
 echo "---> Installing argocd"
 helm repo add argo https://argoproj.github.io/argo-helm
 helm repo update
-helm install argo argo/argo-cd -f argocd_values.yaml --namespace argocd --version 6.0.14 --create-namespace --wait 
+helm install argocd argo/argo-cd -f argocd_values.yaml --namespace argocd --version $ARGOCD_VERSION --create-namespace --wait 
 sleep 30s
 
 # Bootstrap argo apps
@@ -38,11 +41,11 @@ echo "argocd password --> $ARGOCD_PASSWORD" >> $CREDFILENAME
 
 ## Start Minikube dev-cluster
 echo "--> Instaling minikube dev-cluster"
-minikube start --addons=ingress --addons=metrics-server --cpus=2 --memory=6gb -p dev-cluster
+minikube start --addons=ingress --addons=metrics-server --cpus=2 --memory=6gb --kubernetes-version=$K8S_VERSION -p dev-cluster
 
 ## Start Minikube pre-cluster
 echo "--> Instaling minikube pre-cluster"
-minikube start --addons=ingress --addons=metrics-server --cpus=2 --memory=4gb -p pre-cluster
+minikube start --addons=ingress --addons=metrics-server --cpus=2 --memory=4gb --kubernetes-version=$K8S_VERSION -p pre-cluster
 
 ## Go back to argocd-cluster
 echo "--> Switching context to argocd-cluster"
