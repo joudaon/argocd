@@ -1,7 +1,7 @@
 #!/bin/bash
 
 K8S_VERSION=v1.29.0
-ARGOCD_VERSION=6.0.14
+ARGOCD_VERSION=7.6.4
 
 ## Set virtualbox as default driver
 minikube config set driver virtualbox
@@ -41,7 +41,7 @@ echo "argocd password --> $ARGOCD_PASSWORD" >> $CREDFILENAME
 
 ## Start Minikube dev-cluster
 echo "--> Instaling minikube dev-cluster"
-minikube start --addons=ingress --addons=metrics-server --cpus=2 --memory=6gb --kubernetes-version=$K8S_VERSION -p dev-cluster
+minikube start --addons=ingress --addons=metrics-server --cpus=2 --memory=4gb --kubernetes-version=$K8S_VERSION -p dev-cluster
 
 ## Start Minikube pre-cluster
 echo "--> Instaling minikube pre-cluster"
