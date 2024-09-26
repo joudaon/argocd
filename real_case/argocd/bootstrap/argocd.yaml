@@ -15,7 +15,7 @@ spec:
   project: default
   sources:
     - repoURL: https://argoproj.github.io/argo-helm
-      targetRevision: 6.0.14 # https://artifacthub.io/packages/helm/argo/argo-cd # https://github.com/argoproj/argo-helm/releases
+      targetRevision: 7.6.5 # https://artifacthub.io/packages/helm/argo/argo-cd # https://github.com/argoproj/argo-helm/releases
       chart: argo-cd
       helm:
         releaseName: argocd
