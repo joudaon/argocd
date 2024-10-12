@@ -48,6 +48,7 @@ spec:
       labels:
         app_type: addon
         addon_name: kyverno
+        environment: '{{.metadata.annotations.environment}}'
     spec:
       project: default
       source:
