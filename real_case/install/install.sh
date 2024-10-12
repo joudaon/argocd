@@ -61,6 +61,6 @@ sleep 1m
 echo "--> Logging into argocd cluster"
 argocd login argocd.myorg.com --username admin --password $ARGOCD_PASSWORD --insecure --grpc-web
 echo "--> Adding dev-cluster into argocd"
-argocd cluster add dev-cluster --label environment=dev --label enable_external-secrets=true --label enable_keda=true --label enable_kube-state-metrics=false --label enable_reloader=true --label enable_kyverno=false --label enable_rancher=true --yes --grpc-web
+argocd cluster add dev-cluster --annotation environment=dev --label environment=dev --label enable_external-secrets=true --label enable_keda=true --label enable_kube-state-metrics=false --label enable_reloader=true --label enable_kyverno=false --label enable_rancher=true --yes --grpc-web
 echo "--> Adding pre-cluster into argocd"
-argocd cluster add pre-cluster --label environment=pre --label enable_external-secrets=true --label enable_keda=true --label enable_kube-state-metrics=false --label enable_reloader=true --label enable_kyverno=false --yes --grpc-web
+argocd cluster add pre-cluster --annotation environment=pre --label environment=pre --label enable_external-secrets=true --label enable_keda=true --label enable_kube-state-metrics=false --label enable_reloader=true --label enable_kyverno=false --yes --grpc-web
