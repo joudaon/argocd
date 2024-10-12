@@ -1,7 +1,7 @@
 #!/bin/bash
 
 K8S_VERSION=v1.29.0
-ARGOCD_VERSION=7.6.4
+ARGOCD_VERSION=7.6.5
 
 ## Set virtualbox as default driver
 minikube config set driver virtualbox
@@ -26,7 +26,7 @@ helm repo update
 helm install argocd argo/argo-cd -f argocd_values.yaml --namespace argocd --version $ARGOCD_VERSION --create-namespace --wait 
 sleep 30s
 
-# Bootstrap argo apps
+# # Bootstrap argo apps
 echo "--> Bootstrapping argo applications"
 kubectl apply -f ../argocd/bootstrap.yaml
 
