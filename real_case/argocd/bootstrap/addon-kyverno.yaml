@@ -24,12 +24,12 @@ spec:
                   - key: enable_kyverno
                     operator: In
                     values: ['true']
-          # - clusters:
-          #     selector:
-          #       matchLabels:
-          #         name: dev-cluster
-          #     values:
-          #       addonChartVersion: v1.0.0
+          - clusters:
+              selector:
+                matchLabels:
+                  name: dev-cluster
+              values:
+                addonChartVersion: v3.2.7
           - clusters:
               selector:
                 matchLabels:
@@ -62,6 +62,11 @@ spec:
       destination:
         name: '{{ .name }}'
         namespace: 'kyverno'
+      info:
+        - name: Site
+          value: https://kyverno.io/
+        - name: Artifact Hub
+          value: https://artifacthub.io/packages/helm/kyverno/kyverno
       syncPolicy:
         automated:
           selfHeal: true
