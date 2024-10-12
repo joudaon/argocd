@@ -68,9 +68,9 @@ spec:
           value: https://kyverno.io/
         - name: Artifact Hub
           value: https://artifacthub.io/packages/helm/kyverno/kyverno
-      syncPolicy:
-        automated:
-          selfHeal: true
-        syncOptions:
-        - CreateNamespace=true
-        - ServerSideApply=true
+      # syncPolicy:
+      #   automated:
+      #     selfHeal: true
+      #   syncOptions:
+      #   - CreateNamespace=true
+      #   - ServerSideApply=true
