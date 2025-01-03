@@ -15,7 +15,7 @@ spec:
   project: default
   sources:
     - repoURL: https://argoproj.github.io/argo-helm
-      targetRevision: 7.6.5 # https://artifacthub.io/packages/helm/argo/argo-cd # https://github.com/argoproj/argo-helm/releases
+      targetRevision: 7.7.12 # https://artifacthub.io/packages/helm/argo/argo-cd # https://github.com/argoproj/argo-helm/releases
       chart: argo-cd
       helm:
         releaseName: argocd
@@ -28,6 +28,10 @@ spec:
     name: in-cluster
     namespace: argocd
   info:
+    - name: Site
+      value: https://argo-cd.readthedocs.io/en/stable/
+    - name: Artifact Hub
+      value: https://artifacthub.io/packages/helm/argo/argo-cd
     - name: Application url
       value: https://192.168.59.252:32351
   syncPolicy:
