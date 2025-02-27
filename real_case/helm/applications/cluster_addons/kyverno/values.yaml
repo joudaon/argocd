@@ -1,0 +1,5 @@
+kyverno:
+  enabled: true
+
+pod:
+  requireRunAsNonRoot: true
