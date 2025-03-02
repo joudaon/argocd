@@ -52,6 +52,7 @@ spec:
           - Service
           - ScaledObject
           - Pod
+          - Secret
           operations:
           - CREATE
           - UPDATE
