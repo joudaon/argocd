@@ -25,11 +25,11 @@ spec:
         - resources:
             kinds:
               - Pod
-      exclude:
-        any:
-        - resources:
-            namespaces:
-            - nginx
+      # exclude:
+      #   any:
+      #   - resources:
+      #       namespaces:
+      #       - nginx
       skipBackgroundRequests: true
       validate:
         allowExistingViolations: true
