@@ -34,6 +34,7 @@ spec:
       message: "Deletion of critical namespaces is not allowed."
       deny: {}
   - name: audit-namespace-deletion-attempt
+    skipBackgroundRequests: true
     match:
       any:
       - resources:
