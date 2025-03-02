@@ -1,27 +1,34 @@
 apiVersion: kyverno.io/v2beta1
 kind: ClusterPolicy
 metadata:
-  name: audit-all-cluster-operations
+  name: audit-critical-resource-changes
   annotations:
-    policies.kyverno.io/title: Audit All Cluster Operations
+    policies.kyverno.io/title: Audit Critical Resource Changes
     policies.kyverno.io/category: Security
     kyverno.io/kyverno-version: 1.10.0
     policies.kyverno.io/minversion: 1.10.0
     kyverno.io/kubernetes-version: "1.26"
-    policies.kyverno.io/subject: "All Resources"
+    policies.kyverno.io/subject: "Critical Resources"
     policies.kyverno.io/description: >-
-      This policy audits all operations performed on any Kubernetes resource in the cluster.
-      Events are generated for every operation, capturing user information, IP, and user agent.
+      This policy audits changes to critical Kubernetes resources such as Roles, RoleBindings,
+      ClusterRoles, ClusterRoleBindings, Namespaces, NetworkPolicies, and Secrets. Events are generated
+      for CREATE, UPDATE, and DELETE operations, capturing user information, IP, and user agent.
 spec:
   validationFailureAction: Audit
   background: false
   rules:
-  - name: audit-all-cluster-operations
+  - name: audit-critical-resource-changes
     match:
       any:
       - resources:
           kinds:
-          - "*"
+          - Role
+          - RoleBinding
+          - ClusterRole
+          - ClusterRoleBinding
+          - NetworkPolicy
+          - Namespace
+          - Secret
           operations:
           - CREATE
           - UPDATE
@@ -29,7 +36,7 @@ spec:
     generate:
       apiVersion: v1
       kind: Event
-      name: "cluster-operation-{{`{{ request.uid }}`}}"
+      name: "critical-change-{{`{{ request.uid }}`}}"
       namespace: "kube-system"
       synchronize: false
       data:
@@ -40,7 +47,7 @@ spec:
           name: "{{`{{ request.name }}`}}"
         lastTimestamp: "{{`{{ time_now_utc() }}`}}"
         message: "{{`{{ request.operation }}`}} operation performed on '{{`{{ request.name }}`}}' {{`{{ request.kind.kind }}`}} by '{{`{{ request.userInfo.username }}`}}'."
-        reason: "Cluster Operation Audit"
+        reason: "Critical Resource Change"
         source:
           component: kyverno
         type: Warning
