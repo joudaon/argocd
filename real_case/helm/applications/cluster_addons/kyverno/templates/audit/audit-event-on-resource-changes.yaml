@@ -41,6 +41,7 @@ spec:
   background: false
   rules:
   - name: generate-event-on-resource-change
+    skipBackgroundRequests: true
     match:
       any:
       - resources:
