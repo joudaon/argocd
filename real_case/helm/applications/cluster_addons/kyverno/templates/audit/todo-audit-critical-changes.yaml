@@ -46,6 +46,7 @@ spec:
           apiVersion: "{{`{{ request.kind.version }}`}}"
           kind: "{{`{{ request.kind.kind }}`}}"
           name: "{{`{{ request.name }}`}}"
+          namespace: "{{`{{ request.namespace }}`}}"
         lastTimestamp: "{{`{{ time_now_utc() }}`}}"
         message: "{{`{{ request.operation }}`}} operation performed on '{{`{{ request.name }}`}}' {{`{{ request.kind.kind }}`}} by '{{`{{ request.userInfo.username }}`}}'."
         reason: "Critical Resource Change"
