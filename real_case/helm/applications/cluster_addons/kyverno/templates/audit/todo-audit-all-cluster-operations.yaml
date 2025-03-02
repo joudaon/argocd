@@ -26,11 +26,6 @@ spec:
           - CREATE
           - UPDATE
           - DELETE
-          - PATCH
-          - CONNECT
-          - GET
-          - LIST
-          - WATCH
     generate:
       apiVersion: v1
       kind: Event
