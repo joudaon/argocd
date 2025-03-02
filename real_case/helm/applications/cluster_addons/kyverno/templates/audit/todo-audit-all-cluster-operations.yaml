@@ -1,0 +1,51 @@
+apiVersion: kyverno.io/v2beta1
+kind: ClusterPolicy
+metadata:
+  name: audit-all-cluster-operations
+  annotations:
+    policies.kyverno.io/title: Audit All Cluster Operations
+    policies.kyverno.io/category: Security
+    kyverno.io/kyverno-version: 1.10.0
+    policies.kyverno.io/minversion: 1.10.0
+    kyverno.io/kubernetes-version: "1.26"
+    policies.kyverno.io/subject: "All Resources"
+    policies.kyverno.io/description: >-
+      This policy audits all operations performed on any Kubernetes resource in the cluster.
+      Events are generated for every operation, capturing user information, IP, and user agent.
+spec:
+  validationFailureAction: Audit
+  background: false
+  rules:
+  - name: audit-all-cluster-operations
+    match:
+      any:
+      - resources:
+          kinds:
+          - "*"
+          operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+          - PATCH
+          - CONNECT
+          - GET
+          - LIST
+          - WATCH
+    generate:
+      apiVersion: v1
+      kind: Event
+      name: "cluster-operation-{{`{{ request.uid }}`}}"
+      namespace: "kube-system"
+      synchronize: false
+      data:
+        firstTimestamp: "{{`{{ time_now_utc() }}`}}"
+        involvedObject:
+          apiVersion: "{{`{{ request.kind.version }}`}}"
+          kind: "{{`{{ request.kind.kind }}`}}"
+          name: "{{`{{ request.name }}`}}"
+        lastTimestamp: "{{`{{ time_now_utc() }}`}}"
+        message: "{{`{{ request.operation }}`}} operation performed on '{{`{{ request.name }}`}}' {{`{{ request.kind.kind }}`}} by '{{`{{ request.userInfo.username }}`}}' from IP '{{`{{ request.userInfo.extra["authentication.kubernetes.io/pod-ip"][0] | default("unknown") }}`}}' using agent '{{`{{ request.userAgent | default("unknown") }}`}}'."
+        reason: "Cluster Operation Audit"
+        source:
+          component: kyverno
+        type: Warning
