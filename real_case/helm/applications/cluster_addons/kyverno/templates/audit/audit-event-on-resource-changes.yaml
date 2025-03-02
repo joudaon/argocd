@@ -52,23 +52,10 @@ spec:
           - Service
           - ScaledObject
           - Pod
-          # Critical
-          - Role
-          - RoleBinding
-          - ClusterRole
-          - ClusterRoleBinding
-          - Namespace
-          - NetworkPolicy
-          - Secret
           operations:
           - CREATE
           - UPDATE
           - DELETE
-          # - GET
-          # - LIST
-          # - WATCH
-          # - PATCH
-          - CONNECT
     generate:
       apiVersion: v1
       kind: Event
