@@ -36,7 +36,6 @@ metadata:
       in many cases to augment these out-of-the-box Events with custom Events which can be
       custom designed to your needs. This policy generates an Event when any object has been
       created, updated, deleted, or accessed. It lists the userInfo of the actor performing the action.
-      
 spec:
   failurePolicy: Fail # Ignore
   background: false
