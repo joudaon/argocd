@@ -55,19 +55,19 @@ spec:
     generate:
       apiVersion: v1
       kind: Event
-      name: "delete.{{ randAlphaNum 12 | quote }}"
-      namespace: "{{request.object.metadata.namespace}}"
+      name: "delete.{{`{{ random('[a-z0-9]{12}') }}`}}"
+      namespace: "{{`{{request.object.metadata.namespace}}`}}"
       synchronize: false
       data:
-        firstTimestamp: "{{ time_now_utc() }}"
+        firstTimestamp: "{{`{{ time_now_utc() }}`}}"
         involvedObject:
-          apiVersion: "{{ request.kind.version }}"
-          kind: "{{ request.kind.kind }}"
-          name: "{{ request.name }}"
-          namespace: "{{ request.namespace }}"
-          uid: "{{request.oldObject.metadata.uid}}"
-        lastTimestamp: "{{ time_now_utc() }}"
-        message: The '{{ request.name }}' {{ request.kind.kind }} was deleted by {{ request.userInfo | to_string(@) }}.
+          apiVersion: "{{`{{ request.kind.version }}`}}"
+          kind: "{{`{{ request.kind.kind }}`}}"
+          name: "{{`{{ request.name }}`}}"
+          namespace: "{{`{{ request.namespace }}`}}"
+          uid: "{{`{{request.oldObject.metadata.uid}}`}}"
+        lastTimestamp: "{{`{{ time_now_utc() }}`}}"
+        message: "The '{{`{{ request.name }}`}}' {{`{{ request.kind.kind }}`}} was deleted by {{`{{ request.userInfo | to_string(@) }}`}}."
         reason: Object Deleted
         source:
           component: kyverno
