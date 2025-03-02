@@ -18,6 +18,7 @@ spec:
   background: false
   rules:
   - name: audit-critical-resource-changes
+    skipBackgroundRequests: true
     match:
       any:
       - resources:
