@@ -65,8 +65,7 @@ spec:
     generate:
       apiVersion: v1
       kind: Event
-      # name: "change.{{`{{ random('[a-z0-9]{12}') }}`}}"
-      name: "change.{{`{{ time_now_utc() | replace(':', '-') | replace(' ', '_') }}`}}"
+      name: "change.{{`{{ random('[a-z0-9]{12}') }}`}}"
       namespace: "{{`{{request.object.metadata.namespace}}`}}"
       synchronize: false
       data:
