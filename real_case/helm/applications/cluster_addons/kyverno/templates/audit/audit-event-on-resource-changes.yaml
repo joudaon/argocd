@@ -55,9 +55,9 @@ spec:
           - CREATE
           - UPDATE
           - DELETE
-          - GET
+          # - GET
           - LIST
-          - WATCH
+          # - WATCH
           - PATCH
           - CONNECT
     generate:
