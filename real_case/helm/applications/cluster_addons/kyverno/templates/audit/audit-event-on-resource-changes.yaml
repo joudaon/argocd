@@ -56,9 +56,9 @@ spec:
           - UPDATE
           - DELETE
           # - GET
-          - LIST
+          # - LIST
           # - WATCH
-          - PATCH
+          # - PATCH
           - CONNECT
     generate:
       apiVersion: v1
