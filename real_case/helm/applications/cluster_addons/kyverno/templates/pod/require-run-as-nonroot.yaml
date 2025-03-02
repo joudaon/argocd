@@ -25,6 +25,11 @@ spec:
         - resources:
             kinds:
               - Pod
+      exclude:
+        any:
+        - resources:
+            namespaces:
+            - nginx
       validate:
         message: >-
           Running as root is not allowed. Either the field spec.securityContext.runAsNonRoot
