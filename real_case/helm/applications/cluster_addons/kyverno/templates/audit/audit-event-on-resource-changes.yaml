@@ -76,7 +76,7 @@ spec:
           namespace: "{{`{{ request.namespace }}`}}"
           uid: "{{`{{request.object.metadata.uid}}`}}"
         lastTimestamp: "{{`{{ time_now_utc() }}`}}"
-        message: "The '{{`{{ request.name }}`}}' {{`{{ request.kind.kind }}`}} was {{`{{ request.operation | lower }}`}} by {{`{{ request.userInfo | to_string(@) }}`}}."
+        message: "The '{{`{{ request.name }}`}}' {{`{{ request.kind.kind }}`}} was {{`{{ request.operation }}`}} by {{`{{ request.userInfo | to_string(@) }}`}}."
         reason: "Object {{`{{ request.operation }}`}}"
         source:
           component: kyverno
