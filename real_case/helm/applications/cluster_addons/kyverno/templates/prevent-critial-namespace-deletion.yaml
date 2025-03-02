@@ -15,6 +15,7 @@ metadata:
 
 spec:
   validationFailureAction: Enforce
+  failurePolicy: Fail # Ignore
   background: false
   rules:
   - name: block-critical-namespace-deletion
@@ -27,6 +28,7 @@ spec:
           - "default"
           - "kube-system"
           - "kube-public"
+    skipBackgroundRequests: true
     validate:
       message: "Deletion of critical namespaces is not allowed."
       deny: {}
