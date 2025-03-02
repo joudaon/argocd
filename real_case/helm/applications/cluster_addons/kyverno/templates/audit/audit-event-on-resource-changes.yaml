@@ -38,10 +38,10 @@ metadata:
       created, updated, deleted, or accessed. It lists the userInfo of the actor performing the action.
       
 spec:
+  failurePolicy: Fail # Ignore
   background: false
   rules:
   - name: generate-event-on-resource-change
-    failurePolicy: Fail # Ignore
     skipBackgroundRequests: true
     match:
       any:
