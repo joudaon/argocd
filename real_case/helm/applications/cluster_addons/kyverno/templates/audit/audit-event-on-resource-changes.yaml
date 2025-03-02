@@ -77,7 +77,7 @@ spec:
           namespace: "{{`{{ request.namespace }}`}}"
           uid: "{{`{{request.object.metadata.uid}}`}}"
         lastTimestamp: "{{`{{ time_now_utc() }}`}}"
-        message: "The '{{`{{ request.name }}`}}' {{`{{ request.kind.kind }}`}} was {{`{{ request.operation }}`}} by {{`{{ request.userInfo | to_string(@) }}`}}."
+        message: "The '{{`{{ request.name }}`}}' {{`{{ request.kind.kind }}`}} was {{`{{ request.operation }}`}} by {{`{{ request.userInfo | to_string(@) }}`}} from IP {{`{{ request.userInfo.extra['authentication.kubernetes.io/pod-ip'] | default('unknown') }}`}}. User agent: {{`{{ request.userAgent }}`}}."."
         reason: "Object {{`{{ request.operation }}`}}"
         source:
           component: kyverno
