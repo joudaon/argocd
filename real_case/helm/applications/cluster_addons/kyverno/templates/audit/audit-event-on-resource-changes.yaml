@@ -22,9 +22,9 @@ rules:
 apiVersion: kyverno.io/v2beta1
 kind: ClusterPolicy
 metadata:
-  name: audit-event-on-delete
+  name: audit-event-on-resource-changes
   annotations:
-    policies.kyverno.io/title: Audit Event on Delete
+    policies.kyverno.io/title: Audit Event on Resource Changes
     policies.kyverno.io/category: Other
     kyverno.io/kyverno-version: 1.10.0
     policies.kyverno.io/minversion: 1.10.0
@@ -35,12 +35,12 @@ metadata:
       cannot be changed and with what they are associated is fixed. It may be advantageous
       in many cases to augment these out-of-the-box Events with custom Events which can be
       custom designed to your needs. This policy generates an Event when any object has been
-      deleted. It lists the userInfo of the actor performing the deletion.      
+      created, updated, deleted, or accessed. It lists the userInfo of the actor performing the action.
+      
 spec:
   background: false
   rules:
-  - name: generate-event-on-delete
-    skipBackgroundRequests: true
+  - name: generate-event-on-resource-change
     match:
       any:
       - resources:
@@ -52,11 +52,18 @@ spec:
           - ScaledObject
           - Pod
           operations:
+          - CREATE
+          - UPDATE
           - DELETE
+          - GET
+          - LIST
+          - WATCH
+          - PATCH
+          - CONNECT
     generate:
       apiVersion: v1
       kind: Event
-      name: "delete.{{`{{ random('[a-z0-9]{12}') }}`}}"
+      name: "change.{{`{{ random('[a-z0-9]{12}') }}`}}"
       namespace: "{{`{{request.object.metadata.namespace}}`}}"
       synchronize: false
       data:
@@ -66,10 +73,10 @@ spec:
           kind: "{{`{{ request.kind.kind }}`}}"
           name: "{{`{{ request.name }}`}}"
           namespace: "{{`{{ request.namespace }}`}}"
-          uid: "{{`{{request.oldObject.metadata.uid}}`}}"
+          uid: "{{`{{request.object.metadata.uid}}`}}"
         lastTimestamp: "{{`{{ time_now_utc() }}`}}"
-        message: "The '{{`{{ request.name }}`}}' {{`{{ request.kind.kind }}`}} was deleted by {{`{{ request.userInfo | to_string(@) }}`}}."
-        reason: Object Deleted
+        message: "The '{{`{{ request.name }}`}}' {{`{{ request.kind.kind }}`}} was {{`{{ request.operation | lower }}`}} by {{`{{ request.userInfo | to_string(@) }}`}}."
+        reason: "Object {{`{{ request.operation }}`}}"
         source:
           component: kyverno
         type: Warning
