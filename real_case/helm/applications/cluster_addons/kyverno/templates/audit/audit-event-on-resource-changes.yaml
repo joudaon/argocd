@@ -25,7 +25,7 @@ metadata:
   name: audit-event-on-resource-changes
   annotations:
     policies.kyverno.io/title: Audit Event on Resource Changes
-    policies.kyverno.io/category: Other
+    policies.kyverno.io/category: Audit
     kyverno.io/kyverno-version: 1.10.0
     policies.kyverno.io/minversion: 1.10.0
     kyverno.io/kubernetes-version: "1.26"
