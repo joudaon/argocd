@@ -44,7 +44,7 @@ spec:
           kind: "{{`{{ request.kind.kind }}`}}"
           name: "{{`{{ request.name }}`}}"
         lastTimestamp: "{{`{{ time_now_utc() }}`}}"
-        message: "{{`{{ request.operation }}`}} operation performed on '{{`{{ request.name }}`}}' {{`{{ request.kind.kind }}`}} by '{{`{{ request.userInfo.username }}`}}' from IP '{{`{{ request.userInfo.extra["authentication.kubernetes.io/pod-ip"][0] | default("unknown") }}`}}' using agent '{{`{{ request.userAgent | default("unknown") }}`}}'."
+        message: "{{`{{ request.operation }}`}} operation performed on '{{`{{ request.name }}`}}' {{`{{ request.kind.kind }}`}} by '{{`{{ request.userInfo.username }}`}}'."
         reason: "Cluster Operation Audit"
         source:
           component: kyverno
