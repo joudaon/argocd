@@ -45,7 +45,7 @@ spec:
           kind: "Namespace"
           name: "{{`{{ request.name }}`}}"
         lastTimestamp: "{{`{{ time_now_utc() }}`}}"
-        message: "Attempted deletion of critical namespace '{{`{{ request.name }}`}}' by '{{`{{ request.userInfo.username }}`}}' from IP '{{`{{ request.userInfo.extra['authentication.kubernetes.io/pod-ip'][0] | default('unknown') }}`}}'."
+        message: "Attempted deletion of critical namespace '{{`{{ request.name }}`}}' by '{{`{{ request.userInfo.username }}`}}'.
         reason: "Namespace Deletion Attempt"
         source:
           component: kyverno
