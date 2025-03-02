@@ -13,7 +13,6 @@ metadata:
       This policy prevents the deletion of critical Kubernetes namespaces such as 'kube-system',
       'default', and 'kube-public' to ensure cluster stability and security. Additionally, an event
       is generated when an attempt to delete one of these namespaces is detected.
-
 spec:
   validationFailureAction: Enforce
   failurePolicy: Fail # Ignore
