@@ -45,7 +45,7 @@ spec:
           kind: "Namespace"
           name: "{{`{{ request.name }}`}}"
         lastTimestamp: "{{`{{ time_now_utc() }}`}}"
-        message: "Attempted deletion of critical namespace '{{`{{ request.name }}`}}' by '{{`{{ request.userInfo.username }}`}}'.
+        message: "Attempted deletion of critical namespace '{{`{{ request.name }}`}}' by '{{`{{ request.userInfo.username }}`}}'"
         reason: "Namespace Deletion Attempt"
         source:
           component: kyverno
