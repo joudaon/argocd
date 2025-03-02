@@ -30,7 +30,9 @@ spec:
         - resources:
             namespaces:
             - nginx
+      skipBackgroundRequests: true
       validate:
+        allowExistingViolations: true
         message: >-
           Running as root is not allowed. Either the field spec.securityContext.runAsNonRoot
           must be set to `true`, or the fields spec.containers[*].securityContext.runAsNonRoot,
