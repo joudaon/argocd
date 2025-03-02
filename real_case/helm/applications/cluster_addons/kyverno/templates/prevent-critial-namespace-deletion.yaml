@@ -10,8 +10,9 @@ metadata:
     kyverno.io/kubernetes-version: "1.26"
     policies.kyverno.io/subject: "Namespace"
     policies.kyverno.io/description: >-
-      This policy prevents the deletion of critical Kubernetes namespaces such as 'default',
-      'kube-system', and 'kube-public' to ensure cluster stability and security.
+      This policy prevents the deletion of critical Kubernetes namespaces such as 'kube-system',
+      'default', and 'kube-public' to ensure cluster stability and security. Additionally, an event
+      is generated when an attempt to delete one of these namespaces is detected.
 
 spec:
   validationFailureAction: Enforce
@@ -32,10 +33,22 @@ spec:
     validate:
       message: "Deletion of critical namespaces is not allowed."
       deny: {}
+  - name: audit-namespace-deletion-attempt
+    match:
+      any:
+      - resources:
+          kinds:
+          - Namespace
+          names:
+          - "default"
+          - "kube-system"
+          - "kube-public"
+          operations:
+          - DELETE
     generate:
       apiVersion: v1
       kind: Event
-      name: "namespace-deletion-attempt.{{`{{ time_now_utc() | replace(':', '-') | replace(' ', '_') }}`}}"
+      name: "namespace-deletion-attempt-{{`{{ request.uid }}`}}"
       namespace: "kube-system"
       synchronize: false
       data:
@@ -45,7 +58,7 @@ spec:
           kind: "Namespace"
           name: "{{`{{ request.name }}`}}"
         lastTimestamp: "{{`{{ time_now_utc() }}`}}"
-        message: "Attempted deletion of critical namespace '{{`{{ request.name }}`}}' by '{{`{{ request.userInfo.username }}`}}'"
+        message: "Attempted deletion of critical namespace '{{`{{ request.name }}`}}' by '{{`{{ request.userInfo.username }}`}}'."
         reason: "Namespace Deletion Attempt"
         source:
           component: kyverno
