@@ -1,0 +1,81 @@
+### https://awstip.com/multiple-cluster-bootstrapping-using-argocd-applicationset-edf5d4be9667
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: addon-ingress-nginx
+  namespace: argocd
+spec:
+  goTemplate: true
+  syncPolicy:
+    preserveResourcesOnDeletion: false
+  generators:
+    - merge:
+        mergeKeys:
+          - server
+        generators:
+          - clusters:
+              values:
+                addonChart: ingress-nginx
+                # anything not staging or prod use this version
+                addonChartVersion: 4.12.0
+                addonChartRepository: https://kubernetes.github.io/ingress-nginx
+              selector:
+                matchExpressions:
+                  - key: enable_ingress-nginx
+                    operator: In
+                    values: ['true']
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: dev
+              values:
+                addonChartVersion: 4.12.0
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: pre
+              values:
+                addonChartVersion: v2.3.4
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: pro
+              values:
+                addonChartVersion: v2.3.4
+  template:
+    metadata:
+      name: "ad-{{.values.addonChart}}-{{.values.addonChartVersion}}-{{.name}}"
+      labels:
+        app_type: addon
+        addon_name: ingress-nginx
+        environment: '{{.metadata.annotations.environment}}'
+    spec:
+      project: default
+      sources:
+        - chart: '{{.values.addonChart}}'
+          repoURL: '{{.values.addonChartRepository}}'
+          targetRevision: '{{.values.addonChartVersion}}'
+          helm:
+            releaseName: ingress-nginx
+            parameters:
+              - name: cluster_name
+                value: '{{ .name }}'
+        #     valueFiles:
+        #       - $values/real_case/helm/values/ingress-nginx/values.yaml
+        # - repoURL: https://github.com/joudaon/argocd.git
+        #   targetRevision: HEAD
+        #   ref: values
+      destination:
+        name: '{{ .name }}'
+        namespace: 'ingress-nginx'
+      info:
+        - name: Site
+          value: https://github.com/kubernetes/ingress-nginx
+        - name: Artifact Hub
+          value: https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
+        - ServerSideApply=true
