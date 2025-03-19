@@ -10,7 +10,7 @@ kind create cluster --config argocd-cluster.yaml
 # Install nginx ingress
 echo "--> Installing nginx ingress"
 kubectl apply -f https://kind.sigs.k8s.io/examples/ingress/deploy-ingress-nginx.yaml
-sleep 30s
+sleep 70s
 
 ## Install argocd
 echo "---> Installing argocd"
@@ -46,3 +46,10 @@ argocd login argocd.myorg.com --username admin --password $ARGOCD_PASSWORD --ins
 echo "--> Adding dev-cluster into argocd"
 # argocd cluster add kind-dev-cluster --annotation environment=dev --label environment=dev --label enable_external-secrets=true --label enable_keda=true --label enable_kube-state-metrics=false --label enable_reloader=true --label enable_kyverno=false --label enable_rancher=true --yes --grpc-web
 argocd cluster add kind-dev-cluster --annotation environment=dev --label environment=dev --label enable_external-secrets=true --label enable_keda=true --label enable_kube-state-metrics=false --label enable_reloader=true --label enable_kyverno=false --in-cluster --insecure --yes --upsert --grpc-web
+
+
+## INFO
+echo "--> INSTALLATION FINISHED"
+echo "-------------------------"
+echo "--> Add 127.0.0.1 argocd.myorg.com to /etc/hosts file"
+echo "--> Go to argocd.myorg.com"

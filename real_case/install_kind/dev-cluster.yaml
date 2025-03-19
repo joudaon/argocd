@@ -1,3 +1,6 @@
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 name: dev-cluster
+networking:
+  apiServerAddress: "127.0.0.2"  # Cambia esta IP según tu red
+  apiServerPort: 6443
