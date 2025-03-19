@@ -51,15 +51,20 @@ spec:
         environment: '{{.metadata.annotations.environment}}'
     spec:
       project: default
-      source:
-        chart: '{{.values.addonChart}}'
-        repoURL: '{{.values.addonChartRepository}}'
-        targetRevision: '{{.values.addonChartVersion}}'
-        helm:
-          releaseName: prometheus
-          parameters:
-            - name: cluster_name
-              value: '{{ .name }}'
+      sources:
+        - chart: '{{.values.addonChart}}'
+          repoURL: '{{.values.addonChartRepository}}'
+          targetRevision: '{{.values.addonChartVersion}}'
+          helm:
+            releaseName: prometheus
+            parameters:
+              - name: cluster_name
+                value: '{{ .name }}'
+            valueFiles:
+              - $values/real_case/helm/values/prometheus/values.yaml
+        - repoURL: https://github.com/joudaon/argocd.git
+          targetRevision: HEAD
+          ref: values
       destination:
         name: '{{ .name }}'
         namespace: 'prometheus'

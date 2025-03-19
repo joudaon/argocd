@@ -51,7 +51,7 @@ spec:
           helm:
             releaseName: kube-prometheus-stack
             valueFiles:
-              - $values/real_case/helm/values/prometheus/values.yaml
+              - $values/real_case/helm/values/kube-prometheus-stack/values.yaml
         - repoURL: https://github.com/joudaon/argocd.git
           targetRevision: HEAD
           ref: values
