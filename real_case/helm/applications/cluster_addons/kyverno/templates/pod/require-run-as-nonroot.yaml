@@ -15,8 +15,8 @@ metadata:
       `runAsNonRoot` is set to `true`. A known issue prevents a policy such as this
       using `anyPattern` from being persisted properly in Kubernetes 1.23.0-1.23.2.      
 spec:
-  validationFailureAction: Audit
-  validationFailureAction: Enforce
+  validationFailureAction: Audit # Enforce
+  failurePolicy: Fail # Ignore
   background: true
   rules:
     - name: run-as-non-root
@@ -25,7 +25,14 @@ spec:
         - resources:
             kinds:
               - Pod
+      # exclude:
+      #   any:
+      #   - resources:
+      #       namespaces:
+      #       - nginx
+      skipBackgroundRequests: true
       validate:
+        allowExistingViolations: true
         message: >-
           Running as root is not allowed. Either the field spec.securityContext.runAsNonRoot
           must be set to `true`, or the fields spec.containers[*].securityContext.runAsNonRoot,
