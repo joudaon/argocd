@@ -1,0 +1,76 @@
+### https://awstip.com/multiple-cluster-bootstrapping-using-argocd-applicationset-edf5d4be9667
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: addon-prometheus
+  namespace: argocd
+spec:
+  goTemplate: true
+  syncPolicy:
+    preserveResourcesOnDeletion: false
+  generators:
+    - merge:
+        mergeKeys:
+          - server
+        generators:
+          - clusters:
+              values:
+                addonChart: prometheus-community/prometheus
+                # anything not staging or prod use this version
+                addonChartVersion: 27.5.1
+                addonChartRepository: https://prometheus-community.github.io/helm-charts
+              selector:
+                matchExpressions:
+                  - key: enable_prometheus
+                    operator: In
+                    values: ['true']
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: dev
+              values:
+                addonChartVersion: 27.5.1
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: pre
+              values:
+                addonChartVersion: v2.3.4
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: pro
+              values:
+                addonChartVersion: v2.3.4
+  template:
+    metadata:
+      name: "ad-{{.values.addonChart}}-{{.values.addonChartVersion}}-{{.name}}"
+      labels:
+        app_type: addon
+        addon_name: prometheus
+        environment: '{{.metadata.annotations.environment}}'
+    spec:
+      project: default
+      source:
+        chart: '{{.values.addonChart}}'
+        repoURL: '{{.values.addonChartRepository}}'
+        targetRevision: '{{.values.addonChartVersion}}'
+        helm:
+          releaseName: prometheus
+          parameters:
+            - name: cluster_name
+              value: '{{ .name }}'
+      destination:
+        name: '{{ .name }}'
+        namespace: 'prometheus'
+      info:
+        - name: Site
+          value: https://prometheus.io/
+        - name: Artifact Hub
+          value: https://artifacthub.io/packages/helm/prometheus-community/prometheus
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
+        - ServerSideApply=true
