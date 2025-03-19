@@ -3,4 +3,4 @@ server:
     enabled: true
     ingressClassName: nginx
     hosts:
-      - grafana.myorg.com
+      - prometheus.myorg.com

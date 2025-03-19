@@ -10,7 +10,7 @@ kind create cluster --config argocd-cluster.yaml
 # Install nginx ingress
 echo "--> Installing nginx ingress"
 kubectl apply -f https://kind.sigs.k8s.io/examples/ingress/deploy-ingress-nginx.yaml
-sleep 70s
+sleep 60s
 
 ## Install argocd
 echo "---> Installing argocd"
@@ -35,17 +35,23 @@ echo "argocd password --> $ARGOCD_PASSWORD" >> $CREDFILENAME
 ## Start Kind dev-cluster
 echo "--> Instaling kind dev-cluster"
 kind create cluster --config dev-cluster.yaml
+kubectl cluster-info --context kind-dev-cluster
 
 # Go back to argocd-cluster
-echo "--> Switching context to argocd-cluster"
-kubectl config use-context kind-argocd-cluster
+# echo "--> Switching context to argocd-cluster"
+# kubectl config use-context kind-argocd-cluster
 
 ## Adding dev/pre-cluster to argocd
 echo "--> Logging into argocd cluster"
 argocd login argocd.myorg.com --username admin --password $ARGOCD_PASSWORD --insecure --grpc-web
+echo "--> Getting docker ip"
+DEVCLUSTERIP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' dev-cluster-control-plane)
+kubectl config set-cluster kind-dev-cluster --server=https://$DEVCLUSTERIP:6443
+echo "- Docker IP: $DEVCLUSTERIP"
+kubectl cluster-info --context kind-dev-cluster
 echo "--> Adding dev-cluster into argocd"
 # argocd cluster add kind-dev-cluster --annotation environment=dev --label environment=dev --label enable_external-secrets=true --label enable_keda=true --label enable_kube-state-metrics=false --label enable_reloader=true --label enable_kyverno=false --label enable_rancher=true --yes --grpc-web
-argocd cluster add kind-dev-cluster --annotation environment=dev --label environment=dev --label enable_external-secrets=true --label enable_keda=true --label enable_kube-state-metrics=false --label enable_reloader=true --label enable_kyverno=false --in-cluster --insecure --yes --upsert --grpc-web
+argocd cluster add kind-dev-cluster --annotation environment=dev --label environment=dev --label enable_external-secrets=true --label enable_keda=true --label enable_kube-state-metrics=false --label enable_reloader=true --label enable_kyverno=false --insecure --yes --upsert --grpc-web
 
 
 ## INFO
