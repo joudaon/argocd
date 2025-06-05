@@ -1,8 +1,8 @@
-### https://artifacthub.io/packages/helm/cert-manager/cert-manager
+### https://awstip.com/multiple-cluster-bootstrapping-using-argocd-applicationset-edf5d4be9667
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: addon-kube-prometheus-stack
+  name: addon-prometheus
   namespace: argocd
 spec:
   goTemplate: true
@@ -15,33 +15,40 @@ spec:
         generators:
           - clusters:
               values:
-                addonChart: kube-prometheus-stack
+                addonChart: prometheus
                 # anything not staging or prod use this version
-                addonChartVersion: 55.8.3
+                addonChartVersion: 27.5.1
                 addonChartRepository: https://prometheus-community.github.io/helm-charts
               selector:
                 matchExpressions:
-                  - key: enable_kube_prometheus
+                  - key: enable_prometheus
                     operator: In
                     values: ['true']
           - clusters:
               selector:
                 matchLabels:
+                  environment: dev
+              values:
+                addonChartVersion: 27.5.1
+          - clusters:
+              selector:
+                matchLabels:
                   environment: pre
               values:
-                addonChartVersion: 55.8.3
+                addonChartVersion: v2.3.4
           - clusters:
               selector:
                 matchLabels:
                   environment: pro
               values:
-                addonChartVersion: 58.0.0
+                addonChartVersion: v2.3.4
   template:
     metadata:
       name: "ad-{{.values.addonChart}}-{{.values.addonChartVersion}}-{{.name}}"
       labels:
         app_type: addon
-        addon_name: kube-prometheus-stack
+        addon_name: prometheus
+        environment: '{{.metadata.annotations.environment}}'
     spec:
       project: default
       sources:
@@ -49,15 +56,23 @@ spec:
           repoURL: '{{.values.addonChartRepository}}'
           targetRevision: '{{.values.addonChartVersion}}'
           helm:
-            releaseName: kube-prometheus-stack
+            releaseName: prometheus
+            parameters:
+              - name: cluster_name
+                value: '{{ .name }}'
             valueFiles:
-              - $values/real_case/helm/values/kube-prometheus-stack/values.yaml
+              - $values/real_case/helm/values/prometheus/values.yaml
         - repoURL: https://github.com/joudaon/argocd.git
           targetRevision: HEAD
           ref: values
       destination:
         name: '{{ .name }}'
-        namespace: prometheus
+        namespace: 'prometheus'
+      info:
+        - name: Site
+          value: https://prometheus.io/
+        - name: Artifact Hub
+          value: https://artifacthub.io/packages/helm/prometheus-community/prometheus
       syncPolicy:
         automated:
           selfHeal: true
