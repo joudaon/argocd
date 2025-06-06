@@ -92,7 +92,7 @@ echo "✏️ Patching kubeconfig to use IP $CONTAINER_IP..."
 sed -i.bak -E "s|https://127.0.0.1:[0-9]+|https://${CONTAINER_IP}:6443|" "$KUBECONFIG_SLAVE"
 
 echo "🚀 Adding '$CLUSTER_SLAVE' to ArgoCD..."
-argocd cluster add --kubeconfig "$KUBECONFIG_SLAVE" ${CLUSTER_SLAVE} -y
+argocd cluster add --kubeconfig "$KUBECONFIG_SLAVE" kind-${CLUSTER_SLAVE} -y
 
 # ─────────────────────────────────────────────────────────────
 # ✅ Wrap-up
