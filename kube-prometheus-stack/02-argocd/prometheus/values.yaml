@@ -681,13 +681,13 @@ server:
   ## Prometheus server resource requests and limits
   ## Ref: http://kubernetes.io/docs/user-guide/compute-resources/
   ##
-  resources:
-    limits:
-      cpu: 50m #500m
-      memory: 256Mi #512Mi
-    requests:
-      cpu: 10m #500m
-      memory: 60Mi #512Mi
+  resources: []
+    # limits:
+    #   cpu: 50m #500m
+    #   memory: 256Mi #512Mi
+    # requests:
+    #   cpu: 10m #500m
+    #   memory: 60Mi #512Mi
 
   # Required for use in managed kubernetes clusters (such as AWS EKS) with custom CNI (such as calico),
   # because control-plane managed by AWS cannot communicate with pods' IP CIDR and admission webhooks are not working
