@@ -5,15 +5,18 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: minio
-    targetRevision: 17.0.2
-    helm:
-      valueFiles:
-        - values.yaml
+  sources:
+    - repoURL: https://charts.bitnami.com/bitnami
+      chart: minio
+      targetRevision: 13.6.2
+      helm:
+        valueFiles:
+          - $values/kube-prometheus-stack/02-argocd/minio/values.yaml
+    - repoURL: https://github.com/joudaon/argocd.git
+      targetRevision: HEAD
+      ref: values
   destination:
-    server: https://kubernetes.default.svc
+    name: kind-slave
     namespace: minio
   syncPolicy:
     automated:
