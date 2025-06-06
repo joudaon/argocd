@@ -1,0 +1,21 @@
+auth:
+  rootUser: admin
+  rootPassword: admin
+
+defaultBuckets: "my-bucket"
+
+mode: standalone
+
+persistence:
+  enabled: true
+  size: 5Gi
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  hostname: minio.myorg.com
+  ingressClassName: nginx
+  path: /
+  pathType: Prefix
