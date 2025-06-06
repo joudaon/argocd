@@ -26,3 +26,6 @@ spec:
     - CreateNamespace=true
     - ApplyOutOfSyncOnly=true
     - ServerSideApply=true
+  info:
+    - name: Artifact Hub
+      value: https://artifacthub.io/packages/helm/prometheus-community/prometheus
