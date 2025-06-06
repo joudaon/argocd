@@ -391,14 +391,14 @@ server:
     ## Prometheus server Ingress hostnames with optional path (passed through tpl)
     ## Must be provided if Ingress is enabled
     ##
-    hosts: []
-    #   - prometheus.domain.com
-    #   - domain.com/prometheus
+    hosts:
+      - prometheus.myorg.com
 
-    path: /
+    paths:
+      - /
 
     # pathType is only for k8s >= 1.18
-    pathType: Prefix
+    pathType: ImplementationSpecific
 
     ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services. (passed through tpl)
     extraPaths: []
