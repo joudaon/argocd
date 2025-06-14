@@ -8,7 +8,7 @@ spec:
   sources:
     - repoURL: https://charts.bitnami.com/bitnami
       chart: minio
-      targetRevision: 13.6.2
+      targetRevision: 14.7.15
       helm:
         valueFiles:
           - $values/kube-prometheus-stack/02-argocd/minio/values.yaml

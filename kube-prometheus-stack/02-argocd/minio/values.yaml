@@ -13,6 +13,10 @@ persistence:
 service:
   type: ClusterIP
 
+livenessProbe:
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
 ingress:
   enabled: true
   hostname: minio.myorg.com
